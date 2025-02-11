@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(embarcatech-afinador embarcatech-afinador.c )
+add_executable(embarcatech-afinador embarcatech-afinador.c src/wifi.c)
 
 pico_set_program_name(embarcatech-afinador "embarcatech-afinador")
 pico_set_program_version(embarcatech-afinador "0.1")
@@ -54,7 +54,7 @@ target_include_directories(embarcatech-afinador PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(embarcatech-afinador 
+target_link_libraries(embarcatech-afinador
         hardware_spi
         hardware_i2c
         hardware_interp

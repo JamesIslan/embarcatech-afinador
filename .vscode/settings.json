@@ -46,6 +46,8 @@
     },
     "hide-files.files": [],
     "files.associations": {
-        "wifi.h": "c"
+        "wifi.h": "c",
+        "cyw43_arch.h": "c",
+        "tcp.h": "c"
     }
 }

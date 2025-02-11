@@ -46,7 +46,6 @@ void configurar_perifericos() {
   uart_init(UART_ID, BAUD_RATE);
   gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
   gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-  uart_puts(UART_ID, " Olá, UART!\n");
 }
 
 int main() {
@@ -82,7 +81,10 @@ int main() {
   }
 
   // Inicia o servidor HTTP
-  iniciar_servidor_http();
+  // iniciar_servidor_http();
+  ip_addr_t endereco_ip = obter_ip_via_dns("api.thingspeak.com");
+  // printf("Endereço retornado: %s\n", ipaddr_ntoa(endereco_ip));
+  sleep_ms(200);
 
   // Loop principal
   while (true) {

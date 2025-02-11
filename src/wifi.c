@@ -1,7 +1,7 @@
+#include "wifi.h"
+#include "lwip/dns.h"
 #include "lwip/tcp.h"
 #include "pico/cyw43_arch.h"
-
-#include "wifi.h"
 // Estado dos botões (inicialmente sem mensagens)
 char button1_message[50] = "Nenhum evento no botão 1";
 char button2_message[50] = "Nenhum evento no botão 2";
@@ -84,6 +84,84 @@ void iniciar_servidor_http(void) {
 
   printf("Servidor HTTP rodando na porta 80...\n");
 }
+
+static ip_addr_t resolved_ip;
+static bool dns_resolved = false;
+
+void dns_callback(const char *name, const ip_addr_t *ipaddr, void *callback_arg) {
+  if (ipaddr == NULL) {
+    printf("DNS lookup failed for %s\n", name);
+    dns_resolved = true;
+    return;
+  }
+
+  ip_addr_copy(resolved_ip, *ipaddr);
+  dns_resolved = true;
+  printf("Resolved IP address for %s: %s\n", name, ipaddr_ntoa(ipaddr));
+}
+
+ip_addr_t obter_ip_via_dns(const char *hostname) {
+  ip_addr_t addr;
+  dns_resolved = false;
+  err_t err = dns_gethostbyname(hostname, &addr, dns_callback, NULL);
+  switch (err) {
+  case ERR_OK: // Processo concluído
+    dns_callback(hostname, &addr, NULL);
+    break;
+  case ERR_INPROGRESS: // Processo em andamento
+    printf("DNS request in progress for %s\n", hostname);
+    while (!dns_resolved) {
+      cyw43_arch_poll();
+    }
+    break;
+  default: // Processo falho
+    printf("DNS request failed for %s: %d\n", hostname, err);
+    break;
+  }
+  return resolved_ip;
+}
+
+// void enviar_dados(const char *url) {
+//   const char *hostname = "api.thingspeak.com"; // https://api.thingspeak.com
+//   ip_addr_t addr;
+
+//   struct tcp_pcb *pcb;
+//   struct ip4_addr dest_ip;
+//   err_t err;
+
+//   // Resolve the IP address of the server
+//   ip4addr_aton("192.168.1.100", &dest_ip); // Replace with the server's IP address
+
+//   // Create a new TCP PCB
+//   pcb = tcp_new();
+//   if (!pcb) {
+//     printf("Error creating PCB\n");
+//     return;
+//   }
+
+//   // Connect to the server
+//   err = tcp_connect(pcb, &dest_ip, 80, NULL);
+//   if (err != ERR_OK) {
+//     printf("Error connecting to server: %d\n", err);
+//     tcp_close(pcb);
+//     return;
+//   }
+
+//   // Create the HTTP GET request
+//   char request[256];
+//   snprintf(request, sizeof(request), "GET %s HTTP/1.1\r\nHost: 192.168.1.100\r\n\r\n", url);
+
+//   // Send the request
+//   err = tcp_write(pcb, request, strlen(request), TCP_WRITE_FLAG_COPY);
+//   if (err != ERR_OK) {
+//     printf("Error sending request: %d\n", err);
+//     tcp_close(pcb);
+//     return;
+//   }
+
+//   // Close the connection
+//   tcp_close(pcb);
+// }
 
 // Função para monitorar o estado dos botões
 void monitor_buttons() {

@@ -71,11 +71,6 @@ int main() {
     uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
     printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
   }
-
-  // Inicia o servidor HTTP
-  // iniciar_servidor_http();
-  ip_addr_t endereco_ip = obter_ip_via_dns("api.thingspeak.com");
-  // printf("Endereço retornado: %s\n", ipaddr_ntoa(endereco_ip));
   sleep_ms(200);
 
   // Loop principal

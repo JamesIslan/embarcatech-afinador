@@ -1,5 +1,7 @@
 #include "env.h"
 
+#define THINGSPEAK_IP "3.230.136.118"
+
 #define SPI_PORT spi0
 #define PIN_MISO 16
 #define PIN_CS 17

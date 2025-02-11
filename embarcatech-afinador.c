@@ -34,14 +34,6 @@ void configurar_perifericos() {
   gpio_init(LED_PIN);
   gpio_set_dir(LED_PIN, GPIO_OUT);
 
-  gpio_init(BUTTON1_PIN);
-  gpio_set_dir(BUTTON1_PIN, GPIO_IN);
-  gpio_pull_up(BUTTON1_PIN);
-
-  gpio_init(BUTTON2_PIN);
-  gpio_set_dir(BUTTON2_PIN, GPIO_IN);
-  gpio_pull_up(BUTTON2_PIN);
-
   // CONFIGURAÇÃO DE COMUNICAÇÃO UART
   uart_init(UART_ID, BAUD_RATE);
   gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
@@ -89,7 +81,6 @@ int main() {
   // Loop principal
   while (true) {
     cyw43_arch_poll(); // Necessário para manter o Wi-Fi ativo
-    monitor_buttons(); // Atualiza o estado dos botões
     sleep_ms(100);     // Reduz o uso da CPU
   }
   cyw43_arch_deinit(); // Desliga o Wi-Fi (não será chamado, pois o loop é infinito)

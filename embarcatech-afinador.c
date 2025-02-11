@@ -41,6 +41,12 @@ void configurar_perifericos() {
   gpio_init(BUTTON2_PIN);
   gpio_set_dir(BUTTON2_PIN, GPIO_IN);
   gpio_pull_up(BUTTON2_PIN);
+
+  // CONFIGURAÇÃO DE COMUNICAÇÃO UART
+  uart_init(UART_ID, BAUD_RATE);
+  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
+  uart_puts(UART_ID, " Olá, UART!\n");
 }
 
 int main() {
@@ -75,14 +81,8 @@ int main() {
     printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
   }
 
-  // CONFIGURAÇÃO DE COMUNICAÇÃO UART
-  uart_init(UART_ID, BAUD_RATE);
-  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-  uart_puts(UART_ID, " Olá, UART!\n");
-
   // Inicia o servidor HTTP
-  start_http_server();
+  iniciar_servidor_http();
 
   // Loop principal
   while (true) {

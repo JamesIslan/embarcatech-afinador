@@ -66,7 +66,7 @@ static err_t connection_callback(void *arg, struct tcp_pcb *newpcb, err_t err) {
 }
 
 // Função de setup do servidor TCP
-void start_http_server(void) {
+void iniciar_servidor_http(void) {
   struct tcp_pcb *pcb = tcp_new();
   if (!pcb) {
     printf("Erro ao criar PCB\n");

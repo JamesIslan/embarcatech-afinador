@@ -4,5 +4,5 @@
 
 extern void criar_resposta_http();
 extern void monitor_buttons();
-extern void start_http_server(void);
+extern void iniciar_servidor_http(void);
 // extern static err_t http_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);

@@ -48,6 +48,12 @@
     "files.associations": {
         "wifi.h": "c",
         "cyw43_arch.h": "c",
-        "tcp.h": "c"
+        "tcp.h": "c",
+        "timer.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "opt.h": "c",
+        "inet.h": "c",
+        "uart.h": "c"
     }
 }

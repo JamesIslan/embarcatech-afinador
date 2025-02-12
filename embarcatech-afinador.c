@@ -35,14 +35,13 @@ void configurar_perifericos() {
 
 int main() {
   stdio_init_all();
-  printf("Iniciando servidor HTTP\n");
+  configurar_perifericos();
+  configurar_display();
 
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
     return -1;
   }
-
-  configurar_perifericos();
 
   interp_config cfg = interp_default_config();
   interp_set_config(interp0, 0, &cfg);
@@ -64,11 +63,11 @@ int main() {
     uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
     printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
   }
-  sleep_ms(10000);
+  // sleep_ms(10000);
 
-  printf("Iniciando configuração do joystick");
+  printf("Iniciando configuração do joystick\n");
   setup_joystick();
-  printf("Setup concluído!");
+  printf("Setup concluído!\n");
   iniciar_display();
 
   // Loop principal

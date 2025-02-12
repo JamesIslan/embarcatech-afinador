@@ -48,7 +48,7 @@ pico_set_program_name(embarcatech-afinador "embarcatech-afinador")
 pico_set_program_version(embarcatech-afinador "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(embarcatech-afinador 0)
+pico_enable_stdio_uart(embarcatech-afinador 1)
 pico_enable_stdio_usb(embarcatech-afinador 1)
 
 # Add the standard library to the build

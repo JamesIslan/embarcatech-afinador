@@ -42,7 +42,8 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        "/mnt/dev/projects/display-apps": true
     },
     "hide-files.files": [],
     "files.associations": {

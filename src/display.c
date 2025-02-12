@@ -3,11 +3,14 @@
 #include "hardware/i2c.h"
 #include "joystick.h"
 #include "pico/stdlib.h"
+#include "src/bitmaps.h"
 #include "src/inc/ssd1306.h"
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>
 
 struct repeating_timer sw_timer;
+
+ssd1306_t ssd_bm;
 
 void configurar_display() {
   i2c_init(i2c1, ssd1306_i2c_clock * 1000);
@@ -25,7 +28,6 @@ void configurar_display() {
   };
 
   calculate_render_area_buffer_length(&frame_area);
-  ssd1306_t ssd_bm;
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
 }
@@ -43,5 +45,6 @@ bool joystick_callback(struct repeating_timer *t) {
 }
 
 void iniciar_display() {
+  ssd1306_draw_bitmap(&ssd_bm, menu_opcao_um);
   add_repeating_timer_ms(50, joystick_callback, NULL, &sw_timer);
 }

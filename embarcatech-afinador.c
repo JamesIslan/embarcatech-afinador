@@ -63,14 +63,13 @@ int main() {
     uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
     printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
   }
-  // sleep_ms(10000);
 
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
   printf("Setup concluído!\n");
+  printf("Iniciando display\n");
   iniciar_display();
 
-  // Loop principal
   while (true) {
     sleep_ms(100); // Reduz o uso da CPU
   }

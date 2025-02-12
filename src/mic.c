@@ -47,9 +47,9 @@ uint8_t get_intensity(float v) {
 }
 
 void configurar_mic() {
-  adc_gpio_init(MIC_PIN);
   adc_init();
-  adc_select_input(MIC_CHANNEL);
+  adc_gpio_init(MIC_PIN);
+  // adc_select_input(MIC_CHANNEL);
 
   adc_fifo_setup(
       true,  // Habilitar FIFO

@@ -7,6 +7,7 @@
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 #include "src/constants.h"
+#include "src/inc/ssd1306.h"
 #include "src/wifi.h"
 #include <stdio.h>
 
@@ -25,14 +26,12 @@ void configurar_perifericos() {
   gpio_put(PIN_CS, 1);
   i2c_init(I2C_PORT, 400 * 1000);
 
+  i2c_init(i2c1, ssd1306_i2c_clock * 1000);
   gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
   gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
   gpio_pull_up(I2C_SDA);
   gpio_pull_up(I2C_SCL);
-
-  // Configura o LED e os botões
-  gpio_init(LED_PIN);
-  gpio_set_dir(LED_PIN, GPIO_OUT);
+  ssd1306_init();
 
   // CONFIGURAÇÃO DE COMUNICAÇÃO UART
   uart_init(UART_ID, BAUD_RATE);

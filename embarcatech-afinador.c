@@ -1,4 +1,6 @@
+#include "hardware/adc.h"
 #include "hardware/clocks.h"
+#include "hardware/dma.h"
 #include "hardware/interp.h"
 #include "hardware/spi.h"
 #include "hardware/timer.h"
@@ -9,9 +11,13 @@
 #include "src/constants.h"
 #include "src/display.h"
 #include "src/joystick.h"
+#include "src/mic.h"
 #include "src/wifi.h"
 //
 #include <stdio.h>
+
+uint dma_channel; // Tentar mantê-los apenas no arquivo mic.h
+dma_channel_config dma_cfg;
 
 int64_t alarm_callback(alarm_id_t id, void *user_data) {
   return 0;
@@ -68,7 +74,40 @@ int main() {
   setup_joystick();
   printf("Setup concluído!\n");
   printf("Iniciando display\n");
-  iniciar_display();
+  // iniciar_display();
+  sleep_ms(5000);
+
+  printf("Iniciando configuração do microfone!");
+
+  configurar_mic();
+  dma_channel = dma_claim_unused_channel(true);
+  // Configurações do DMA.
+  dma_cfg = dma_channel_get_default_config(dma_channel);
+
+  channel_config_set_transfer_data_size(&dma_cfg, DMA_SIZE_16); // Tamanho da transferência é 16-bits (usamos uint16_t para armazenar valores do ADC)
+
+  channel_config_set_read_increment(&dma_cfg, false); // Desabilita incremento do ponteiro de leitura (lemos de um único registrador)
+
+  channel_config_set_write_increment(&dma_cfg, true); // Habilita incremento do ponteiro de escrita (escrevemos em um array/buffer)
+
+  channel_config_set_dreq(&dma_cfg, DREQ_ADC); // Usamos a requisição de dados do ADC
+
+  // Amostragem de teste.
+  printf("Amostragem de teste...\n");
+  sample_mic();
+
+  printf("Configuracoes completas!\n");
+  while (true) {
+
+    // Realiza uma amostragem do microfone.
+    sample_mic();
+
+    // Pega a potência média da amostragem do microfone.
+    float avg = mic_power();
+    printf("Intensidade: %f\n", avg);
+    sleep_ms(100);
+    // avg = 2.f * abs(ADC_ADJUST(avg)); // Ajusta para intervalo de 0 a 3.3V. (apenas magnitude, sem sinal)
+  }
 
   while (true) {
     sleep_ms(100); // Reduz o uso da CPU

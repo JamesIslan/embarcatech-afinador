@@ -40,6 +40,7 @@ add_executable(embarcatech-afinador
         src/botao.c
         src/display.c
         src/joystick.c
+        src/mic.c
         src/wifi.c
         src/inc/ssd1306_i2c.c
         )
@@ -68,6 +69,7 @@ target_link_libraries(embarcatech-afinador
         hardware_timer
         hardware_clocks
         hardware_adc
+        hardware_dma
         pico_cyw43_arch_lwip_threadsafe_background
         )
 

@@ -1,8 +1,12 @@
 #include "wifi.h"
+#include "display.h"
+#include "inc/ssd1306.h"
 #include "lwip/dns.h"
 #include "lwip/tcp.h"
 #include "pico/cyw43_arch.h"
+#include "pico/stdlib.h"
 #include "src/constants.h"
+#include <stdio.h>
 
 int configurar_wifi() {
   cyw43_arch_enable_sta_mode();

@@ -8,6 +8,7 @@
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 // Import de dispositivos
+#include "src/bitmaps.h"
 #include "src/constants.h"
 #include "src/display.h"
 #include "src/joystick.h"
@@ -43,6 +44,7 @@ int main() {
   stdio_init_all();
   configurar_perifericos();
   configurar_display();
+  ssd1306_draw_bitmap(&ssd_bm, menu_conectando);
 
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
@@ -52,7 +54,8 @@ int main() {
   interp_config cfg = interp_default_config();
   interp_set_config(interp0, 0, &cfg);
   add_alarm_in_ms(2000, alarm_callback, NULL, false);
-
+  // sleep_ms(10000);
+  printf("Configurando Wi-Fi...");
   configurar_wifi();
 
   printf("Iniciando configuração do joystick\n");

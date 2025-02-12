@@ -1,9 +1,9 @@
 #include "display.h"
+#include "bitmaps.h"
 #include "hardware/adc.h"
 #include "hardware/i2c.h"
 #include "joystick.h"
 #include "pico/stdlib.h"
-#include "src/bitmaps.h"
 #include "src/inc/ssd1306.h"
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>

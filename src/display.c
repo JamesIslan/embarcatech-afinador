@@ -8,7 +8,7 @@
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>
 
-struct repeating_timer sw_timer;
+struct repeating_timer timer_joystick;
 struct repeating_timer timer_display;
 volatile int display_menu_index = 0;
 
@@ -41,10 +41,10 @@ bool joystick_callback(struct repeating_timer *t) {
   printf("X: %d", vrx_value);
 
   if (vrx_value >= 4000) { // Joystick up?
-    display_menu_index = (display_menu_index == 0) ? 2 : --display_menu_index;
+    display_menu_index = (display_menu_index == 0) ? 5 : --display_menu_index;
     printf("Index: %i\n", display_menu_index);
   } else if (vrx_value <= 100) { // Joystick down?
-    display_menu_index = (display_menu_index == 2) ? 0 : ++display_menu_index;
+    display_menu_index = (display_menu_index == 5) ? 0 : ++display_menu_index;
     printf("Index: %i\n", display_menu_index);
   }
   return true;
@@ -58,6 +58,6 @@ bool display_callback(struct repeating_timer *t) {
 
 void iniciar_display() {
   ssd1306_draw_bitmap(&ssd_bm, menu_opcao_um);
-  add_repeating_timer_ms(75, joystick_callback, NULL, &sw_timer);
+  add_repeating_timer_ms(75, joystick_callback, NULL, &timer_joystick);
   add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

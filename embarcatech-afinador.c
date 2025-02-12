@@ -1,13 +1,16 @@
 #include "hardware/clocks.h"
-// #include "hardware/i2c.h"
 #include "hardware/interp.h"
 #include "hardware/spi.h"
 #include "hardware/timer.h"
 #include "hardware/uart.h"
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
+// Import de dispositivos
 #include "src/constants.h"
+#include "src/display.h"
+#include "src/joystick.h"
 #include "src/wifi.h"
+//
 #include <stdio.h>
 
 int64_t alarm_callback(alarm_id_t id, void *user_data) {
@@ -61,7 +64,12 @@ int main() {
     uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
     printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
   }
-  sleep_ms(5000);
+  sleep_ms(10000);
+
+  printf("Iniciando configuração do joystick");
+  setup_joystick();
+  printf("Setup concluído!");
+  iniciar_display();
 
   // Loop principal
   while (true) {

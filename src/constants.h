@@ -8,10 +8,6 @@
 #define PIN_SCK 18
 #define PIN_MOSI 19
 
-#define I2C_PORT i2c0
-#define I2C_SDA 14
-#define I2C_SCL 15
-
 #define UART_ID uart1
 #define BAUD_RATE 115200
 

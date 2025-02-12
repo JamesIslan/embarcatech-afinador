@@ -35,7 +35,14 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(embarcatech-afinador embarcatech-afinador.c src/wifi.c src/joystick.c src/inc/ssd1306_i2c.c)
+add_executable(embarcatech-afinador
+        embarcatech-afinador.c
+        src/wifi.c
+        src/joystick.c
+        src/display.c
+        src/botao.c
+        src/inc/ssd1306_i2c.c
+        )
 
 pico_set_program_name(embarcatech-afinador "embarcatech-afinador")
 pico_set_program_version(embarcatech-afinador "0.1")

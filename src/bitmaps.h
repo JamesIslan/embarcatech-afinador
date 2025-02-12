@@ -7,6 +7,7 @@ extern uint8_t menu_opcao_tres[];
 extern uint8_t menu_opcao_quatro[];
 extern uint8_t menu_opcao_cinco[];
 extern uint8_t menu_opcao_seis[];
-extern uint8_t menu_conectando[];
+extern uint8_t menu_conexao_pendente[];
+extern uint8_t menu_conexao_concluida[];
 
 extern uint8_t *menu_opcoes[6];

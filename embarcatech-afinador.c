@@ -43,8 +43,11 @@ void configurar_perifericos() {
 int main() {
   stdio_init_all();
   configurar_perifericos();
+  printf("Iniciando display\n");
   configurar_display();
-  ssd1306_draw_bitmap(&ssd_bm, menu_conectando);
+  ssd1306_draw_bitmap(&ssd_bm, menu_conexao_pendente); // Bitmap conexão em andamento
+  printf("Iniciando configuração do joystick\n");
+  setup_joystick();
 
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
@@ -56,13 +59,13 @@ int main() {
   add_alarm_in_ms(2000, alarm_callback, NULL, false);
   // sleep_ms(10000);
   printf("Configurando Wi-Fi...");
-  configurar_wifi();
+  if (!configurar_wifi()) {
+    ssd1306_draw_bitmap(&ssd_bm, menu_conexao_concluida); // Bitmap conexão concluída
+    sleep_ms(3000);
+    printf("Setup concluído!\n");
+    iniciar_display();
+  }
 
-  printf("Iniciando configuração do joystick\n");
-  setup_joystick();
-  printf("Setup concluído!\n");
-  printf("Iniciando display\n");
-  // iniciar_display();
   sleep_ms(5000);
 
   printf("Iniciando configuração do microfone!");

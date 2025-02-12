@@ -71,12 +71,11 @@ int main() {
     uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
     printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
   }
-  sleep_ms(200);
+  sleep_ms(5000);
 
   // Loop principal
   while (true) {
-    cyw43_arch_poll(); // Necessário para manter o Wi-Fi ativo
-    sleep_ms(100);     // Reduz o uso da CPU
+    sleep_ms(100); // Reduz o uso da CPU
   }
   cyw43_arch_deinit(); // Desliga o Wi-Fi (não será chamado, pois o loop é infinito)
 }

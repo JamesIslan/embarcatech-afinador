@@ -9,6 +9,7 @@
 #include "pico/stdlib.h"
 // Import de dispositivos
 #include "src/bitmaps.h"
+#include "src/botao.h"
 #include "src/constants.h"
 #include "src/display.h"
 #include "src/joystick.h"
@@ -42,12 +43,15 @@ void configurar_perifericos() {
 
 int main() {
   stdio_init_all();
+  sleep_ms(10000);
   configurar_perifericos();
   printf("Iniciando display\n");
   configurar_display();
   ssd1306_draw_bitmap(&ssd_bm, menu_conexao_pendente); // Bitmap conexão em andamento
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
+  printf("Iniciando configuração do botão\n");
+  configurar_botao();
 
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");

@@ -38,21 +38,20 @@ bool joystick_callback(struct repeating_timer *t) {
   adc_select_input(ADC_CHANNEL_VRX); // X axis
   sleep_us(2);
   uint16_t vrx_value = adc_read();
-  printf("X: %d", vrx_value);
+  // printf("X: %d", vrx_value);
 
   if (vrx_value >= 4000) { // Joystick up?
     display_menu_index = (display_menu_index == 0) ? 5 : --display_menu_index;
-    printf("Index: %i\n", display_menu_index);
+    // printf("Index: %i\n", display_menu_index);
   } else if (vrx_value <= 100) { // Joystick down?
     display_menu_index = (display_menu_index == 5) ? 0 : ++display_menu_index;
-    printf("Index: %i\n", display_menu_index);
+    // printf("Index: %i\n", display_menu_index);
   }
   return true;
 }
 
 bool display_callback(struct repeating_timer *t) {
   ssd1306_draw_bitmap(&ssd_bm, menu_opcoes[display_menu_index]);
-  printf("Display atualizado");
   return true;
 }
 

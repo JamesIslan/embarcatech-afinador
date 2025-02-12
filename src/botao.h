@@ -1,3 +1,3 @@
-#define PINO_BOTAO 10
+#define PINO_BOTAO 5
 
 void configurar_botao();

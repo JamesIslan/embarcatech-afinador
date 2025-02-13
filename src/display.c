@@ -138,7 +138,7 @@ void gerenciar_afinacao() {
 }
 
 void iniciar_display() {
-  exibir_bitmap_display(menu_opcao_um);
+  exibir_bitmap_display(menu_opcoes[display_menu_index]);
   add_repeating_timer_ms(75, joystick_callback, NULL, &timer_joystick);
   add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

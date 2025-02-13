@@ -2,5 +2,5 @@
 
 #define PINO_BOTAO 5
 
-extern volatile bool botao_pressionado;
+extern volatile bool modo_menu;
 void configurar_botao();

@@ -60,7 +60,7 @@ void configurar_display_bitmap() {
   ssd1306_config(&ssd_bm);
 }
 bool joystick_callback(struct repeating_timer *t) {
-  if (botao_pressionado) {
+  if (!modo_menu) {
     printf("Retornando false joystick callback");
     return false;
   }
@@ -81,7 +81,7 @@ bool joystick_callback(struct repeating_timer *t) {
 }
 
 bool display_callback(struct repeating_timer *t) {
-  if (botao_pressionado) {
+  if (!modo_menu) {
     printf("Retornando false display callback");
     return false;
   }

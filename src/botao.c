@@ -6,7 +6,7 @@
 
 // Buffer para armazenar a descrição do evento
 static char event_str[128];
-volatile bool botao_pressionado = false;
+volatile bool modo_menu = true;
 
 // Função para converter eventos de GPIO em uma string legível
 void gpio_event_string(char *buf, uint32_t events) {
@@ -26,10 +26,10 @@ void gpio_event_string(char *buf, uint32_t events) {
       }
       events &= ~mask; // Remove o evento já processado
 
-      if (events) { // Se houver mais eventos, adiciona ", "
-        *buf++ = ',';
-        *buf++ = ' ';
-      }
+      // if (events) { // Se houver mais eventos, adiciona ", "
+      //   *buf++ = ',';
+      //   *buf++ = ' ';
+      // }
     }
   }
   *buf++ = '\0'; // Finaliza a string
@@ -37,10 +37,10 @@ void gpio_event_string(char *buf, uint32_t events) {
 
 // Função de callback chamada quando ocorre uma interrupção no GPIO
 void callback_botao_pressionado(uint gpio, uint32_t events) {
-  busy_wait_ms(100);
+  busy_wait_ms(200);
   gpio_event_string(event_str, events);    // Converte os eventos em uma string
   printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
-  botao_pressionado = true;
+  modo_menu = false;
   gerenciar_afinacao();
 }
 

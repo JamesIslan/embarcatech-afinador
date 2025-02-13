@@ -46,15 +46,8 @@ int main() {
   sleep_ms(10000);
   configurar_perifericos();
   printf("Iniciando display\n");
-  // printf("Teste struct: %d\n", cordas[4].frequencia_lida);
-  // cordas[4].frequencia_lida = 100;
-  // printf("Teste struct: %d\n", cordas[4].frequencia_lida);
-  // exibir_leitura_mic(500, 600);
-  // sleep_ms(5000);
   exibir_bitmap_display(menu_conexao_pendente);
   sleep_ms(5000);
-  // exibir_leitura_mic(600, 700);
-  // sleep_ms(5000);
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
   printf("Iniciando configuração do botão\n");

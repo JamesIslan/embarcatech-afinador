@@ -52,6 +52,8 @@ int main() {
   setup_joystick();
   printf("Iniciando configuração do botão\n");
   configurar_botao();
+  printf("Iniciando configuração do microfone!\n");
+  configurar_mic();
 
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
@@ -71,9 +73,6 @@ int main() {
 
   sleep_ms(5000);
 
-  // printf("Iniciando configuração do microfone!");
-
-  // configurar_mic();
   // dma_channel = dma_claim_unused_channel(true);
   // // Configurações do DMA.
   // dma_cfg = dma_channel_get_default_config(dma_channel);

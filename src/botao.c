@@ -3,7 +3,8 @@
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
-
+// Temp
+#include "bitmaps.h"
 // Buffer para armazenar a descrição do evento
 static char event_str[128];
 volatile bool modo_menu = true;

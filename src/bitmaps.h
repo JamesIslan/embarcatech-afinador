@@ -10,5 +10,6 @@ extern uint8_t menu_opcao_seis[];
 extern uint8_t menu_conexao_pendente[];
 extern uint8_t menu_conexao_concluida[];
 extern uint8_t menu_botao_pressionado[];
+extern uint8_t menu_afinacao_concluida[];
 
 extern uint8_t *menu_opcoes[6];

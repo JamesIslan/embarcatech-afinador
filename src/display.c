@@ -139,6 +139,7 @@ void gerenciar_afinacao() {
   struct corda_violao obj = cordas[display_menu_index];
   printf("Objeto: %d\n", obj.frequencia_desejada);
   exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
+  // exibir_bitmap_display(menu_afinacao_concluida); // Mensagem de afinação concluída
 }
 
 void iniciar_display() {

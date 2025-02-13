@@ -46,12 +46,12 @@ int main() {
   sleep_ms(10000);
   configurar_perifericos();
   printf("Iniciando display\n");
-  exibir_leitura_mic(500, 600);
-  sleep_ms(5000);
+  // exibir_leitura_mic(500, 600);
+  // sleep_ms(5000);
   exibir_bitmap_display(menu_conexao_pendente);
   sleep_ms(5000);
-  exibir_leitura_mic(600, 700);
-  sleep_ms(5000);
+  // exibir_leitura_mic(600, 700);
+  // sleep_ms(5000);
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
   printf("Iniciando configuração do botão\n");
@@ -75,38 +75,38 @@ int main() {
 
   sleep_ms(5000);
 
-  printf("Iniciando configuração do microfone!");
+  // printf("Iniciando configuração do microfone!");
 
-  configurar_mic();
-  dma_channel = dma_claim_unused_channel(true);
-  // Configurações do DMA.
-  dma_cfg = dma_channel_get_default_config(dma_channel);
+  // configurar_mic();
+  // dma_channel = dma_claim_unused_channel(true);
+  // // Configurações do DMA.
+  // dma_cfg = dma_channel_get_default_config(dma_channel);
 
-  // channel_config_set_transfer_data_size(&dma_cfg, DMA_SIZE_16); // Tamanho da transferência é 16-bits (usamos uint16_t para armazenar valores do ADC)
+  // // channel_config_set_transfer_data_size(&dma_cfg, DMA_SIZE_16); // Tamanho da transferência é 16-bits (usamos uint16_t para armazenar valores do ADC)
 
-  // channel_config_set_read_increment(&dma_cfg, false); // Desabilita incremento do ponteiro de leitura (lemos de um único registrador)
+  // // channel_config_set_read_increment(&dma_cfg, false); // Desabilita incremento do ponteiro de leitura (lemos de um único registrador)
 
-  // channel_config_set_write_increment(&dma_cfg, true); // Habilita incremento do ponteiro de escrita (escrevemos em um array/buffer)
+  // // channel_config_set_write_increment(&dma_cfg, true); // Habilita incremento do ponteiro de escrita (escrevemos em um array/buffer)
 
-  // channel_config_set_dreq(&dma_cfg, DREQ_ADC); // Usamos a requisição de dados do ADC
+  // // channel_config_set_dreq(&dma_cfg, DREQ_ADC); // Usamos a requisição de dados do ADC
 
-  // Amostragem de teste.
-  printf("Amostragem de teste...\n");
-  sample_mic();
+  // // Amostragem de teste.
+  // printf("Amostragem de teste...\n");
+  // sample_mic();
 
-  printf("Configuracoes completas!\n");
-  while (true) {
-    adc_select_input(2);
-    uint16_t mic_value = adc_read();
-    // Realiza uma amostragem do microfone.
-    // sample_mic();
+  // printf("Configuracoes completas!\n");
+  // while (true) {
+  //   adc_select_input(2);
+  //   uint16_t mic_value = adc_read();
+  //   // Realiza uma amostragem do microfone.
+  //   // sample_mic();
 
-    // Pega a potência média da amostragem do microfone.
-    // float avg = mic_power();
-    printf("Intensidade: %i\n", mic_value);
-    sleep_ms(100);
-    // avg = 2.f * abs(ADC_ADJUST(avg)); // Ajusta para intervalo de 0 a 3.3V. (apenas magnitude, sem sinal)
-  }
+  //   // Pega a potência média da amostragem do microfone.
+  //   // float avg = mic_power();
+  //   printf("Intensidade: %i\n", mic_value);
+  //   sleep_ms(100);
+  //   // avg = 2.f * abs(ADC_ADJUST(avg)); // Ajusta para intervalo de 0 a 3.3V. (apenas magnitude, sem sinal)
+  // }
 
   while (true) {
     sleep_ms(100); // Reduz o uso da CPU

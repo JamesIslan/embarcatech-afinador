@@ -1,10 +1,12 @@
 #include "botao.h"
+#include "display.h"
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
 
 // Buffer para armazenar a descrição do evento
 static char event_str[128];
+volatile bool botao_pressionado = false;
 
 // Função para converter eventos de GPIO em uma string legível
 void gpio_event_string(char *buf, uint32_t events) {
@@ -34,15 +36,22 @@ void gpio_event_string(char *buf, uint32_t events) {
 }
 
 // Função de callback chamada quando ocorre uma interrupção no GPIO
-void gpio_callback(uint gpio, uint32_t events) {
+void callback_botao_pressionado(uint gpio, uint32_t events) {
   gpio_event_string(event_str, events);    // Converte os eventos em uma string
   printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
+  botao_pressionado = true;
+  exibir_leitura_mic(200, 400);
+  // sleep_ms(5000);
+  // if (event_str == "EDGE_FALL") {
+  //   printf("Entrou no if!");
+  //   exibir_leitura_mic(200, 400);
+  // }
 }
 
 void configurar_botao() {
   gpio_init(PINO_BOTAO);
   gpio_set_dir(PINO_BOTAO, GPIO_IN);
   gpio_pull_up(PINO_BOTAO);
-  gpio_set_irq_enabled_with_callback(PINO_BOTAO, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
+  gpio_set_irq_enabled_with_callback(PINO_BOTAO, GPIO_IRQ_EDGE_FALL, true, &callback_botao_pressionado);
   printf("IRQ definido!");
 }

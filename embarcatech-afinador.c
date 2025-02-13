@@ -46,19 +46,12 @@ int main() {
   sleep_ms(10000);
   configurar_perifericos();
   printf("Iniciando display\n");
-  configurar_display_texto();
   exibir_leitura_mic(500, 600);
-  // escrever_string_display();
   sleep_ms(5000);
-  configurar_display_bitmap();
-  ssd1306_draw_bitmap(&ssd_bm, menu_conexao_pendente); // Bitmap conexão em andamento
+  exibir_bitmap_display(menu_conexao_pendente);
   sleep_ms(5000);
-  configurar_display_texto();
   exibir_leitura_mic(600, 700);
-  // escrever_string_display();
   sleep_ms(5000);
-  // configurar_display();
-  // ssd1306_draw_bitmap(&ssd_bm, menu_conexao_pendente); // Bitmap conexão em andamento
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
   printf("Iniciando configuração do botão\n");

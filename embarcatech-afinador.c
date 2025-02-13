@@ -43,11 +43,10 @@ void configurar_perifericos() {
 
 int main() {
   stdio_init_all();
-  sleep_ms(10000);
   configurar_perifericos();
   printf("Iniciando display\n");
   exibir_bitmap_display(menu_conexao_pendente);
-  sleep_ms(5000);
+  sleep_ms(3000);
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
   printf("Iniciando configuração do botão\n");

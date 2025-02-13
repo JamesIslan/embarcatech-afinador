@@ -37,14 +37,15 @@ void gpio_event_string(char *buf, uint32_t events) {
 
 // Função de callback chamada quando ocorre uma interrupção no GPIO
 void callback_botao_pressionado(uint gpio, uint32_t events) {
-  busy_wait_ms(400);
   gpio_event_string(event_str, events);    // Converte os eventos em uma string
   printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
   modo_menu = !modo_menu;
   if (modo_menu) {
+    busy_wait_ms(200);
     // Entrar no menu
     iniciar_display();
   } else {
+    busy_wait_ms(200);
     // Entrar na página específica
     gerenciar_afinacao();
   }

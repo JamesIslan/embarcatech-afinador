@@ -59,9 +59,12 @@ void configurar_display_bitmap() {
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
 }
+
 bool joystick_callback(struct repeating_timer *t) {
+  printf("Entrando no joystick callback\n");
   if (!modo_menu) {
-    printf("Retornando false joystick callback");
+    cancel_repeating_timer(&timer_joystick);
+    printf("Retornando false joystick callback\n");
     return false;
   }
   adc_select_input(ADC_CHANNEL_VRX); // X axis
@@ -76,13 +79,14 @@ bool joystick_callback(struct repeating_timer *t) {
     display_menu_index = (display_menu_index == 5) ? 0 : ++display_menu_index;
     // printf("Index: %i\n", display_menu_index);
   }
-  printf("Callback joystick rodou");
+  // printf("Callback joystick rodou");
   return true;
 }
 
 bool display_callback(struct repeating_timer *t) {
   if (!modo_menu) {
-    printf("Retornando false display callback");
+    cancel_repeating_timer(&timer_display);
+    printf("Retornando false display callback\n");
     return false;
   }
   ssd1306_draw_bitmap(&ssd_bm, menu_opcoes[display_menu_index]);

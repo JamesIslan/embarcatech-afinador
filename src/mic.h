@@ -11,6 +11,11 @@
 #define ADC_MAX 3.3f
 #define ADC_STEP (3.3f / 5.f) // Intervalos de volume do microfone.
 
+struct corda_violao {
+  int frequencia_lida;
+  int frequencia_desejada;
+};
+extern struct corda_violao cordas[];
 extern uint dma_channel;
 extern dma_channel_config dma_cfg;
 

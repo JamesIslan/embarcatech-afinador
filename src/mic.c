@@ -3,10 +3,16 @@
 #include "hardware/dma.h"
 #include <math.h>
 
-// Canal e configurações do DMA
-
 // Buffer de amostras do ADC.
 uint16_t adc_buffer[SAMPLES];
+
+struct corda_violao cordas[] = {
+  {.frequencia_lida = 0, .frequencia_desejada = 82},   // Corda E grave
+  {.frequencia_lida = 0, .frequencia_desejada = 119},  // Corda B
+  {.frequencia_lida = 0, .frequencia_desejada = 196},  // Corda G
+  {.frequencia_lida = 0, .frequencia_desejada = 247},  // Corda D
+  {.frequencia_lida = 0, .frequencia_desejada = 330},  // Corda A
+  {.frequencia_lida = 0, .frequencia_desejada = 330}}; // Corda E agudo
 
 void sample_mic() {
   adc_fifo_drain(); // Limpa o FIFO do ADC.

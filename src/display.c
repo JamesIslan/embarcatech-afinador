@@ -4,6 +4,7 @@
 #include "hardware/adc.h"
 #include "hardware/i2c.h"
 #include "joystick.h"
+#include "mic.h"
 #include "pico/stdlib.h"
 #include "src/inc/ssd1306.h"
 #include <stdbool.h> // Adicione esta linha
@@ -19,14 +20,14 @@ char buffer_freq_lida[128];
 char buffer_freq_desejada[128];
 
 char *TEMPLATE_LEITURA_MIC[] = {
-  "               ",
   "FREQUENCIA LIDA",
+  "               ",
   buffer_freq_lida,
   "               ",
   "   FREQUENCIA  ",
   "    DESEJADA   ",
-  buffer_freq_desejada,
-  "               "};
+  "               ",
+  buffer_freq_desejada};
 
 char *TEMPLATE_LEITURA_MIC_FORMATADO[8];
 
@@ -109,7 +110,7 @@ void exibir_leitura_mic(int frequencia_lida, int frequencia_desejada) {
     if (i == 2) {
       // Substitui a linha 3 pelo valor formatado de "FREQUENCIA LIDA"
       TEMPLATE_LEITURA_MIC_FORMATADO[i] = buffer_freq_lida;
-    } else if (i == 6) {
+    } else if (i == 7) {
       // Substitui a linha 6 pelo valor formatado de "FREQUENCIA DESEJADA"
       TEMPLATE_LEITURA_MIC_FORMATADO[i] = buffer_freq_desejada;
     } else {
@@ -128,6 +129,12 @@ void exibir_bitmap_display(uint8_t text[]) {
   configurar_display_bitmap();
   ssd1306_draw_bitmap(&ssd_bm, text);
   printf("Escreveu bitmap!\n");
+}
+
+void gerenciar_afinacao() {
+  struct corda_violao obj = cordas[display_menu_index];
+  printf("Objeto: %d\n", obj.frequencia_desejada);
+  exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
 }
 
 void iniciar_display() {

@@ -37,15 +37,11 @@ void gpio_event_string(char *buf, uint32_t events) {
 
 // Função de callback chamada quando ocorre uma interrupção no GPIO
 void callback_botao_pressionado(uint gpio, uint32_t events) {
+  busy_wait_ms(100);
   gpio_event_string(event_str, events);    // Converte os eventos em uma string
   printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
   botao_pressionado = true;
-  exibir_leitura_mic(200, 400);
-  // sleep_ms(5000);
-  // if (event_str == "EDGE_FALL") {
-  //   printf("Entrou no if!");
-  //   exibir_leitura_mic(200, 400);
-  // }
+  gerenciar_afinacao();
 }
 
 void configurar_botao() {

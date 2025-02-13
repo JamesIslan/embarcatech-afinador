@@ -46,8 +46,19 @@ int main() {
   sleep_ms(10000);
   configurar_perifericos();
   printf("Iniciando display\n");
-  configurar_display();
+  configurar_display_texto();
+  exibir_leitura_mic(500, 600);
+  // escrever_string_display();
+  sleep_ms(5000);
+  configurar_display_bitmap();
   ssd1306_draw_bitmap(&ssd_bm, menu_conexao_pendente); // Bitmap conexão em andamento
+  sleep_ms(5000);
+  configurar_display_texto();
+  exibir_leitura_mic(600, 700);
+  // escrever_string_display();
+  sleep_ms(5000);
+  // configurar_display();
+  // ssd1306_draw_bitmap(&ssd_bm, menu_conexao_pendente); // Bitmap conexão em andamento
   printf("Iniciando configuração do joystick\n");
   setup_joystick();
   printf("Iniciando configuração do botão\n");
@@ -61,13 +72,12 @@ int main() {
   interp_config cfg = interp_default_config();
   interp_set_config(interp0, 0, &cfg);
   add_alarm_in_ms(2000, alarm_callback, NULL, false);
-  // sleep_ms(10000);
   printf("Configurando Wi-Fi...");
   if (!configurar_wifi()) {
-    ssd1306_draw_bitmap(&ssd_bm, menu_conexao_concluida); // Bitmap conexão concluída
+    // ssd1306_draw_bitmap(&ssd_bm, menu_conexao_concluida); // Bitmap conexão concluída
     sleep_ms(3000);
     printf("Setup concluído!\n");
-    iniciar_display();
+    // iniciar_display();
   }
 
   sleep_ms(5000);

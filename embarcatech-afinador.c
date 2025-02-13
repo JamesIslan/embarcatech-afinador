@@ -67,10 +67,10 @@ int main() {
   add_alarm_in_ms(2000, alarm_callback, NULL, false);
   printf("Configurando Wi-Fi...");
   if (!configurar_wifi()) {
-    // ssd1306_draw_bitmap(&ssd_bm, menu_conexao_concluida); // Bitmap conexão concluída
+    exibir_bitmap_display(menu_conexao_concluida);
     sleep_ms(3000);
     printf("Setup concluído!\n");
-    // iniciar_display();
+    iniciar_display();
   }
 
   sleep_ms(5000);

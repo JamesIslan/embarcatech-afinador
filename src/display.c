@@ -65,10 +65,10 @@ bool joystick_callback(struct repeating_timer *t) {
 
   if (vrx_value >= 4000) { // Joystick up?
     display_menu_index = (display_menu_index == 0) ? 5 : --display_menu_index;
-    // printf("Index: %i\n", display_menu_index);
+    printf("Index: %i\n", display_menu_index);
   } else if (vrx_value <= 100) { // Joystick down?
     display_menu_index = (display_menu_index == 5) ? 0 : ++display_menu_index;
-    // printf("Index: %i\n", display_menu_index);
+    printf("Index: %i\n", display_menu_index);
   }
   return true;
 }
@@ -110,18 +110,17 @@ void exibir_leitura_mic(int frequencia_lida, int frequencia_desejada) {
     printf("%s\n", TEMPLATE_LEITURA_MIC_FORMATADO[i]);
   }
   escrever_string_display(TEMPLATE_LEITURA_MIC_FORMATADO, ssd, &frame_area, count_of(TEMPLATE_LEITURA_MIC_FORMATADO));
-  printf("Escreveu string!");
+  printf("Escreveu string!\n");
 }
 
 void exibir_bitmap_display(uint8_t text[]) {
   configurar_display_bitmap();
   ssd1306_draw_bitmap(&ssd_bm, text);
-  printf("Escreveu bitmap!");
+  printf("Escreveu bitmap!\n");
 }
 
 void iniciar_display() {
   exibir_bitmap_display(menu_opcao_um);
-  // ssd1306_draw_bitmap(&ssd_bm, menu_opcao_um);
   add_repeating_timer_ms(75, joystick_callback, NULL, &timer_joystick);
   add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

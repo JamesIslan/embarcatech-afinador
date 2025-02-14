@@ -21,9 +21,7 @@ struct corda_violao cordas[] = {
   {.frequencia_lida = 0, .frequencia_desejada = 330},  // Corda A
   {.frequencia_lida = 0, .frequencia_desejada = 330}}; // Corda E agudo
 
-void setup_mic() {
-  // stdio_init_all();
-
+void configurar_mic() { // Configura ADC e DMA do microfone
   // CONFIGURAÇÃO DO ADC
   adc_gpio_init(MIC_GPIO);
   adc_init();
@@ -36,8 +34,6 @@ void setup_mic() {
       true);
   adc_set_clkdiv(DIVISOR_CLOCK);
   //
-
-  sleep_ms(1000);
 
   // CONFIGURAÇÃO DO DIRECT MEMORY ACCESS
   uint dma_chan = dma_claim_unused_channel(true);
@@ -76,7 +72,7 @@ void main_fft() {
   kiss_fft_cpx fft_out[N_AMOSTRAS];
   kiss_fftr_cfg cfg = kiss_fftr_alloc(N_AMOSTRAS, false, 0, 0);
 
-  setup_mic();
+  configurar_mic();
 
   while (true) {
     // ALGORITMO FFT - FILTRAGEM DE FREQUÊNCIAS

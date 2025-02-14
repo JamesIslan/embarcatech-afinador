@@ -12,9 +12,7 @@ struct corda_violao {
   int frequencia_desejada;
 };
 extern struct corda_violao cordas[];
-extern uint dma_channel;
-extern dma_channel_config dma_cfg;
 
-extern void setup_mic();
+extern void configurar_mic();
 extern void pegar_amostra(uint8_t *capture_buf);
 extern void main_fft();

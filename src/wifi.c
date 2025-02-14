@@ -2,11 +2,17 @@
 #include "display.h"
 #include "inc/ssd1306.h"
 #include "lwip/dns.h"
+#include "lwip/pbuf.h"
 #include "lwip/tcp.h"
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 #include "src/constants.h"
 #include <stdio.h>
+#include <string.h>
+
+// static struct tcp_pcb *tcp_client_pcb;
+char request[256];
+static struct tcp_pcb *tcp_client_pcb;
 
 int configurar_wifi() {
   cyw43_arch_enable_sta_mode();
@@ -27,41 +33,70 @@ int configurar_wifi() {
   }
 }
 
-// void enviar_dados() {
-//   struct tcp_pcb *pcb;
-//   struct ip4_addr dest_ip;
-//   err_t err;
+// Callback quando dados são recebidos
+err_t tcp_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err) {
+  if (p == NULL) {
+    printf("Conexão encerrada pelo servidor.\n");
+    tcp_close(tpcb);
+    return ERR_OK;
+  }
 
-//   // Resolve the IP address of the server
-//   ip4addr_aton("192.168.1.100", &dest_ip); // Replace with the server's IP address
+  char buffer[512]; // Buffer maior para evitar overflow
+  size_t copy_len = (p->len < sizeof(buffer) - 1) ? p->len : sizeof(buffer) - 1;
+  pbuf_copy_partial(p, buffer, copy_len, 0);
+  buffer[copy_len] = '\0';
+  // printf("Recebido: %s\n", buffer);
 
-//   // Create a new TCP PCB
-//   pcb = tcp_new();
-//   if (!pcb) {
-//     printf("Error creating PCB\n");
-//     return;
-//   }
+  pbuf_free(p);
+  return ERR_OK;
+}
 
-//   // Connect to the server
-//   err = tcp_connect(pcb, &dest_ip, 80, NULL);
-//   if (err != ERR_OK) {
-//     printf("Error connecting to server: %d\n", err);
-//     tcp_close(pcb);
-//     return;
-//   }
+err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
+  if (err != ERR_OK) {
+    printf("Falha ao conectar ao servidor.\n");
+    return err;
+  }
 
-//   // Create the HTTP GET request
-//   char request[256];
-//   snprintf(request, sizeof(request), "GET %s HTTP/1.1\r\nHost: 192.168.1.100\r\n\r\n", url);
+  printf("Conectado ao servidor.\n");
+  snprintf(request, sizeof(request),
+           "GET /update?api_key=%s&field1=%d HTTP/1.1\r\n"
+           "Host: %s\r\n"
+           "Connection: close\r\n\r\n",
+           THINGSPEAK_TOKEN, 300, THINGSPEAL_HOST);
 
-//   // Send the request
-//   err = tcp_write(pcb, request, strlen(request), TCP_WRITE_FLAG_COPY);
-//   if (err != ERR_OK) {
-//     printf("Error sending request: %d\n", err);
-//     tcp_close(pcb);
-//     return;
-//   }
+  tcp_write(tcp_client_pcb, request, strlen(request), TCP_WRITE_FLAG_COPY);
+  tcp_output(tcp_client_pcb);
+  tcp_recv(tcp_client_pcb, tcp_recv_callback);
 
-//   // Close the connection
-//   tcp_close(pcb);
-// }
+  return ERR_OK;
+}
+
+// Callback de resolução DNS
+void dns_callback(const char *name, const ip_addr_t *ipaddr, void *callback_arg) {
+  if (ipaddr == NULL) {
+    printf("Falha ao resolver DNS para %s\n", name);
+    return;
+  }
+
+  printf("Resolvido %s para %s\n", name, ipaddr_ntoa(ipaddr));
+  tcp_connect(tcp_client_pcb, ipaddr, 80, enviar_dados);
+}
+
+// Função para enviar dados ao ThingSpeak
+void enviar_para_thingspeak() {
+  tcp_client_pcb = tcp_new();
+  if (!tcp_client_pcb) {
+    printf("Falha ao criar o TCP PCB.\n");
+    return;
+  }
+
+  printf("Resolvendo %s...\n", "api.thingspeak.com");
+  ip_addr_t server_ip;
+  ipaddr_aton(THINGSPEAK_IP, &server_ip);
+  if (true) {
+    printf("DNS resolvido imediatamente: %s\n", ipaddr_ntoa(&server_ip));
+    tcp_connect(tcp_client_pcb, &server_ip, 80, enviar_dados);
+  } else {
+    tcp_close(tcp_client_pcb);
+  }
+}

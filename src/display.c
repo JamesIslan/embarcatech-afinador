@@ -63,7 +63,7 @@ void configurar_display_bitmap() {
 bool joystick_callback(struct repeating_timer *t) {
   printf("Entrando no joystick callback\n");
   if (!modo_menu) {
-    cancel_repeating_timer(&timer_joystick);
+    // cancel_repeating_timer(&timer_joystick);
     printf("Retornando false joystick callback\n");
     return false;
   }
@@ -71,28 +71,28 @@ bool joystick_callback(struct repeating_timer *t) {
   sleep_us(2);
   uint16_t vrx_value = adc_read();
   // printf("X: %d", vrx_value);
-
   if (vrx_value >= 4000) { // Joystick up?
     display_menu_index = (display_menu_index == 0) ? 5 : --display_menu_index;
-    // printf("Index: %i\n", display_menu_index);
+    exibir_bitmap_display(menu_opcoes[display_menu_index]);
+    busy_wait_ms(300);
   } else if (vrx_value <= 100) { // Joystick down?
     display_menu_index = (display_menu_index == 5) ? 0 : ++display_menu_index;
-    // printf("Index: %i\n", display_menu_index);
+    exibir_bitmap_display(menu_opcoes[display_menu_index]);
+    busy_wait_ms(300);
   }
-  // printf("Callback joystick rodou");
   return true;
 }
 
-bool display_callback(struct repeating_timer *t) {
-  if (!modo_menu) {
-    cancel_repeating_timer(&timer_display);
-    printf("Retornando false display callback\n");
-    return false;
-  }
-  ssd1306_draw_bitmap(&ssd_bm, menu_opcoes[display_menu_index]);
-  printf("Callback display rodou");
-  return true;
-}
+// bool display_callback(struct repeating_timer *t) {
+//   if (!modo_menu) {
+//     cancel_repeating_timer(&timer_display);
+//     printf("Retornando false display callback\n");
+//     return false;
+//   }
+//   ssd1306_draw_bitmap(&ssd_bm, menu_opcoes[display_menu_index]);
+//   printf("Callback display rodou");
+//   return true;
+// }
 
 void escrever_string_display(char *text[], uint8_t *ssd, struct render_area *frame_area, size_t line_count) {
   configurar_display_texto();
@@ -143,7 +143,9 @@ void gerenciar_afinacao() {
 }
 
 void iniciar_display() {
+  // sleep_ms(200);
   exibir_bitmap_display(menu_opcoes[display_menu_index]);
-  add_repeating_timer_ms(75, joystick_callback, NULL, &timer_joystick);
-  add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
+  cancel_repeating_timer(&timer_joystick);
+  add_repeating_timer_ms(50, joystick_callback, NULL, &timer_joystick);
+  // add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

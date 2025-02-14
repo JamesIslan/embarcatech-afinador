@@ -44,7 +44,12 @@ add_executable(embarcatech-afinador
         src/mic.c
         src/wifi.c
         src/inc/ssd1306_i2c.c
+        src/fft/kiss_fft.c
+        src/fft/kiss_fftr.c
         )
+
+# add_library(kiss_fftr kiss_fftr.c) # FFT
+# add_library(kiss_fft kiss_fft.c) # FFT
 
 pico_set_program_name(embarcatech-afinador "embarcatech-afinador")
 pico_set_program_version(embarcatech-afinador "0.1")
@@ -61,6 +66,8 @@ target_link_libraries(embarcatech-afinador
 target_include_directories(embarcatech-afinador PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
+
+# pico_add_extra_outputs(adc_fft) # FFT
 
 # Add any user requested libraries
 target_link_libraries(embarcatech-afinador

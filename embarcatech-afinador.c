@@ -18,9 +18,6 @@
 //
 #include <stdio.h>
 
-uint dma_channel; // Tentar mantê-los apenas no arquivo mic.h
-dma_channel_config dma_cfg;
-
 int64_t alarm_callback(alarm_id_t id, void *user_data) {
   return 0;
 }
@@ -52,8 +49,7 @@ int main() {
   printf("Iniciando configuração do botão\n");
   configurar_botao();
   printf("Iniciando configuração do microfone!\n");
-  configurar_mic();
-
+  main_fft();
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
     return -1;

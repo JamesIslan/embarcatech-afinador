@@ -55,6 +55,7 @@
         "stdio.h": "c",
         "opt.h": "c",
         "inet.h": "c",
-        "uart.h": "c"
+        "uart.h": "c",
+        "kiss_fftr.h": "c"
     }
 }

@@ -161,7 +161,7 @@ bool display_notas_callback() {
 }
 
 void gerenciar_afinacao() {
-  add_repeating_timer_ms(100, display_notas_callback, NULL, &timer_display);
+  add_repeating_timer_ms(50, display_notas_callback, NULL, &timer_display);
 }
 
 void iniciar_display() {

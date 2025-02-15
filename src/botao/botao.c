@@ -39,8 +39,8 @@ void gpio_event_string(char *buf, uint32_t events) {
 
 // Função de callback chamada quando ocorre uma interrupção no GPIO
 void callback_botao_pressionado(uint gpio, uint32_t events) {
-  gpio_event_string(event_str, events);    // Converte os eventos em uma string
-  printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
+  gpio_event_string(event_str, events); // Converte os eventos em uma string
+  // printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
   modo_menu = !modo_menu;
   if (modo_menu) {
     busy_wait_ms(200);
@@ -54,10 +54,15 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
   }
 }
 
+void configurar_irq_botao() {
+  gpio_set_irq_enabled_with_callback(PINO_BOTAO, GPIO_IRQ_EDGE_FALL && GPIO_IRQ_EDGE_RISE, true, &callback_botao_pressionado);
+  // Talvez possa configurar esse irq como false enquanto a corda não é afinada
+}
+
 void configurar_botao() {
   gpio_init(PINO_BOTAO);
   gpio_set_dir(PINO_BOTAO, GPIO_IN);
   gpio_pull_up(PINO_BOTAO);
-  gpio_set_irq_enabled_with_callback(PINO_BOTAO, GPIO_IRQ_EDGE_FALL, true, &callback_botao_pressionado);
-  printf("IRQ definido!");
+  configurar_irq_botao();
+  // printf("IRQ definido!");
 }

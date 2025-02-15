@@ -1,0 +1,4 @@
+# Observação
+O código deste pacote não foi desenvolvido por mim, mas sim por um outro programador. Trata-se de um algoritmo responsável por fazer a Transformada Rápida de Fourier (FFT), que é uma técnica responsável por pegar um sinal de domínio (que é captado pelo microfone e traduzido pelo ADC) e segregá-lo em varias frequências separadas. Neste projeto, esta técnica precisa ser utilizada pois a afinação das cordas do violão seguem uma frequência fundamental. Quando o programa identifica uma frequência de captura igual ou muito próxima a esta frequência fundamental, considera-se a corda como afinada.
+
+[Link para o repositório](https://github.com/AlexFWulff/awulff-pico-playground/tree/e0c98d544ad0cf7972edaf5215ae165e835f29eb/adc_fft)

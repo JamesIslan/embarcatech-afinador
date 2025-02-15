@@ -6,4 +6,4 @@
 #define THINGSPEAK_IP "3.230.136.118" // api.thingspeak.com
 
 extern void configurar_wifi();
-extern void enviar_para_thingspeak();
+extern void configurar_thingspeak();

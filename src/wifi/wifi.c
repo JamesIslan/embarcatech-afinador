@@ -2,6 +2,7 @@
 #include "../bitmaps/bitmaps.h"
 #include "../display/display.h"
 #include "../inc/ssd1306.h"
+#include "../mic/mic.h"
 #include "env.h"
 #include "lwip/dns.h"
 #include "lwip/pbuf.h"
@@ -13,6 +14,7 @@
 // static struct tcp_pcb *tcp_client_pcb;
 char request[256];
 static struct tcp_pcb *tcp_client_pcb;
+struct repeating_timer timer_thingspeak;
 
 void configurar_wifi() {
   cyw43_arch_enable_sta_mode();
@@ -63,11 +65,12 @@ err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
   }
 
   printf("Conectado ao servidor.\n");
+  float valor_frequencia = max_freq;
   snprintf(request, sizeof(request),
-           "GET /update?api_key=%s&field1=%d HTTP/1.1\r\n"
+           "GET /update?api_key=%s&field1=%f HTTP/1.1\r\n"
            "Host: %s\r\n"
            "Connection: close\r\n\r\n",
-           THINGSPEAK_TOKEN, 300, THINGSPEAL_HOST);
+           THINGSPEAK_TOKEN, valor_frequencia, THINGSPEAL_HOST);
 
   tcp_write(tcp_client_pcb, request, strlen(request), TCP_WRITE_FLAG_COPY);
   tcp_output(tcp_client_pcb);
@@ -77,11 +80,11 @@ err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
 }
 
 // Função para enviar dados ao ThingSpeak
-void enviar_para_thingspeak() {
+bool conectar_thingspeak(struct repeating_timer *t) {
   tcp_client_pcb = tcp_new();
   if (!tcp_client_pcb) {
     printf("Falha ao criar o TCP PCB.\n");
-    return;
+    return false;
   }
 
   printf("Resolvendo %s...\n", "api.thingspeak.com");
@@ -93,4 +96,9 @@ void enviar_para_thingspeak() {
   } else {
     tcp_close(tcp_client_pcb);
   }
+  return true;
+}
+
+void configurar_thingspeak() {
+  add_repeating_timer_ms(15000, conectar_thingspeak, NULL, &timer_thingspeak);
 }

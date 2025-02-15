@@ -31,11 +31,7 @@ int main() {
 
   configurar_wifi();
   iniciar_display();
-  while (1) {
-    enviar_para_thingspeak();
-    printf("Dados enviados!");
-    sleep_ms(15000); // Aguarda 15 segundos para enviar outro pacote
-  }
+  configurar_thingspeak();
 
   while (true) {
     sleep_ms(100); // Reduz o uso da CPU

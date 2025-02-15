@@ -18,25 +18,8 @@
 //
 #include <stdio.h>
 
-void configurar_perifericos() {
-  spi_init(SPI_PORT, 1000 * 1000);
-  gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
-  gpio_set_function(PIN_CS, GPIO_FUNC_SIO);
-  gpio_set_function(PIN_SCK, GPIO_FUNC_SPI);
-  gpio_set_function(PIN_MOSI, GPIO_FUNC_SPI);
-
-  gpio_set_dir(PIN_CS, GPIO_OUT);
-  gpio_put(PIN_CS, 1);
-
-  // CONFIGURAÇÃO DE COMUNICAÇÃO UART
-  uart_init(UART_ID, BAUD_RATE);
-  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-}
-
 int main() {
   stdio_init_all();
-  configurar_perifericos();
   printf("Iniciando display\n");
   exibir_bitmap_display(menu_conexao_pendente);
   sleep_ms(3000);
@@ -45,7 +28,6 @@ int main() {
   printf("Iniciando configuração do botão\n");
   configurar_botao();
   printf("Iniciando configuração do microfone!\n");
-  // main_fft();
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
     return -1;

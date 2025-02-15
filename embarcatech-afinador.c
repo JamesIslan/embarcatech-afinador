@@ -7,7 +7,7 @@
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 // Import de dispositivos
-#include "src/bitmaps.h"
+#include "src/bitmaps/bitmaps.h"
 #include "src/botao.h"
 #include "src/display.h"
 #include "src/env.h"

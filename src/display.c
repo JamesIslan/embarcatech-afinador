@@ -1,5 +1,5 @@
 #include "display.h"
-#include "bitmaps.h"
+#include "bitmaps/bitmaps.h"
 #include "botao.h"
 #include "hardware/adc.h"
 #include "hardware/i2c.h"

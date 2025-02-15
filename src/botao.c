@@ -4,7 +4,7 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 // Temp
-#include "bitmaps.h"
+#include "bitmaps/bitmaps.h"
 #include "mic.h"
 // Buffer para armazenar a descrição do evento
 static char event_str[128];

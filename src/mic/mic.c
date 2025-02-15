@@ -94,6 +94,7 @@ void configurar_mic() { // Configura ADC e DMA do microfone
     freqs[i] = f_res * i;
   }
   cfg_fftr = kiss_fftr_alloc(N_AMOSTRAS, false, 0, 0);
+  cancel_repeating_timer(&timer_mic);
   add_repeating_timer_ms(50, main_fft, NULL, &timer_mic);
 }
 

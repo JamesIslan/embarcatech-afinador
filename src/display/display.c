@@ -162,6 +162,7 @@ bool display_notas_callback() {
     configurar_interrupcao_botao(true); // Permitir pressionamento
     busy_wait_ms(2000);
     exibir_bitmap_display(menu_afinacao_concluida);
+    cancel_repeating_timer(&timer_mic);
     return false;
   } else {
     exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);

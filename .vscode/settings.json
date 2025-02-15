@@ -62,6 +62,7 @@
         "joystick.h": "c",
         "wifi.h": "c",
         "ssd1306.h": "c",
-        "mic.h": "c"
+        "mic.h": "c",
+        "botao.h": "c"
     }
 }

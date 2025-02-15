@@ -13,14 +13,10 @@
 #include "src/constants.h"
 #include "src/display.h"
 #include "src/joystick.h"
-#include "src/mic.h"
+// #include "src/mic.h"
 #include "src/wifi.h"
 //
 #include <stdio.h>
-
-int64_t alarm_callback(alarm_id_t id, void *user_data) {
-  return 0;
-}
 
 void configurar_perifericos() {
   spi_init(SPI_PORT, 1000 * 1000);
@@ -49,7 +45,7 @@ int main() {
   printf("Iniciando configuração do botão\n");
   configurar_botao();
   printf("Iniciando configuração do microfone!\n");
-  main_fft();
+  // main_fft();
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
     return -1;
@@ -57,22 +53,19 @@ int main() {
 
   interp_config cfg = interp_default_config();
   interp_set_config(interp0, 0, &cfg);
-  add_alarm_in_ms(2000, alarm_callback, NULL, false);
   printf("Configurando Wi-Fi...");
   if (!configurar_wifi()) {
     exibir_bitmap_display(menu_conexao_concluida);
-    sleep_ms(3000);
     printf("Setup concluído!\n");
     iniciar_display();
   }
-  sleep_ms(2000);
 
-  while (1) {
-    enviar_para_thingspeak();
-    printf("Dados enviados!");
+  // while (1) {
+  //   enviar_para_thingspeak();
+  //   printf("Dados enviados!");
 
-    sleep_ms(30000); // Aguarda 30 segundos por conta do thingspeak
-  }
+  //   sleep_ms(30000); // Aguarda 30 segundos por conta do thingspeak
+  // }
 
   while (true) {
     sleep_ms(100); // Reduz o uso da CPU

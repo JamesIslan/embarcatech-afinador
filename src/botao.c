@@ -5,6 +5,7 @@
 #include <stdio.h>
 // Temp
 #include "bitmaps.h"
+#include "mic.h"
 // Buffer para armazenar a descrição do evento
 static char event_str[128];
 volatile bool modo_menu = true;
@@ -42,12 +43,13 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
   printf("GPIO %d %s\n", gpio, event_str); // Imprime o evento
   modo_menu = !modo_menu;
   if (modo_menu) {
-    busy_wait_ms(200);
+    // busy_wait_ms(200);
     // Entrar no menu
+    kiss_fft_free(cfg_fftr);
     iniciar_display();
   } else {
-    busy_wait_ms(200);
-    // Entrar na página específica
+    // busy_wait_ms(200);
+    configurar_mic();
     gerenciar_afinacao();
   }
 }

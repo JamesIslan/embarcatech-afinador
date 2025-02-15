@@ -1,12 +1,12 @@
 #include "display.h"
-#include "bitmaps/bitmaps.h"
-#include "botao.h"
+#include "../bitmaps/bitmaps.h"
+#include "../botao/botao.h"
+#include "../inc/ssd1306.h"
+#include "../joystick/joystick.h"
+#include "../mic/mic.h"
 #include "hardware/adc.h"
 #include "hardware/i2c.h"
-#include "joystick.h"
-#include "mic.h"
 #include "pico/stdlib.h"
-#include "src/inc/ssd1306.h"
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>
 #include <string.h>

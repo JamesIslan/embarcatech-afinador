@@ -7,13 +7,13 @@
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 // Import de dispositivos
+#include "env.h"
 #include "src/bitmaps/bitmaps.h"
-#include "src/botao.h"
-#include "src/display.h"
-#include "src/env.h"
-#include "src/joystick.h"
-// #include "src/mic.h"
-#include "src/wifi.h"
+#include "src/botao/botao.h"
+#include "src/display/display.h"
+#include "src/joystick/joystick.h"
+// #include "src/mic/mic.h"
+#include "src/wifi/wifi.h"
 //
 #include <stdio.h>
 

@@ -47,7 +47,7 @@
     },
     "hide-files.files": [],
     "files.associations": {
-        "wifi.h": "c",
+        "wifi/wifi.h": "c",
         "cyw43_arch.h": "c",
         "tcp.h": "c",
         "timer.h": "c",
@@ -57,7 +57,10 @@
         "inet.h": "c",
         "uart.h": "c",
         "kiss_fftr.h": "c",
-        "botao.h": "c",
-        "display.h": "c"
+        "botao/botao.h": "c",
+        "display/display.h": "c",
+        "joystick.h": "c",
+        "wifi.h": "c",
+        "ssd1306.h": "c"
     }
 }

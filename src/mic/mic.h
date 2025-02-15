@@ -1,4 +1,4 @@
-#include "fft/kiss_fftr.h"
+#include "../fft/kiss_fftr.h"
 #include "hardware/dma.h"
 
 #define DIVISOR_CLOCK 960

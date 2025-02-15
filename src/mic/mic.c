@@ -2,8 +2,8 @@
 // https://github.com/AlexFWulff/awulff-pico-playground/tree/e0c98d544ad0cf7972edaf5215ae165e835f29eb/adc_fft
 
 #include "mic.h"
-#include "botao.h"
-#include "fft/kiss_fftr.h"
+#include "../botao/botao.h"
+#include "../fft/kiss_fftr.h"
 #include "hardware/adc.h"
 #include "hardware/dma.h"
 #include "pico/stdlib.h"

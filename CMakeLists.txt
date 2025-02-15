@@ -38,11 +38,11 @@ pico_sdk_init()
 add_executable(embarcatech-afinador
         embarcatech-afinador.c
         src/bitmaps/bitmaps.c
-        src/botao.c
-        src/display.c
-        src/joystick.c
-        src/mic.c
-        src/wifi.c
+        src/botao/botao.c
+        src/display/display.c
+        src/joystick/joystick.c
+        src/mic/mic.c
+        src/wifi/wifi.c
         src/inc/ssd1306_i2c.c
         src/fft/kiss_fft.c
         src/fft/kiss_fftr.c

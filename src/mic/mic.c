@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 volatile float max_freq = 0.0;
-uint8_t buffer_capturado[N_AMOSTRAS];
+uint16_t buffer_capturado[N_AMOSTRAS];
 kiss_fft_scalar fft_in[N_AMOSTRAS];
 kiss_fft_cpx fft_out[N_AMOSTRAS];
 kiss_fftr_cfg cfg_fftr;
@@ -58,7 +58,7 @@ bool main_fft(struct repeating_timer *t) {
     }
   }
   max_freq = freqs[max_idx];
-  // printf("Greatest Frequency Component: %0.2f Hz\n", max_freq);
+  printf("Greatest Frequency Component: %0.2f Hz\n", max_freq);
   return true;
   //
 
@@ -75,14 +75,14 @@ void configurar_mic() { // Configura ADC e DMA do microfone
       true,
       1,
       false,
-      true);
+      false);
   adc_set_clkdiv(DIVISOR_CLOCK);
   //
 
   // CONFIGURAÇÃO DO DIRECT MEMORY ACCESS
   uint dma_chan = dma_claim_unused_channel(true);
   cfg_dma = dma_channel_get_default_config(dma_chan);
-  channel_config_set_transfer_data_size(&cfg_dma, DMA_SIZE_8);
+  channel_config_set_transfer_data_size(&cfg_dma, DMA_SIZE_16);
   channel_config_set_read_increment(&cfg_dma, false);
   channel_config_set_write_increment(&cfg_dma, true);
   channel_config_set_dreq(&cfg_dma, DREQ_ADC);
@@ -97,15 +97,15 @@ void configurar_mic() { // Configura ADC e DMA do microfone
   add_repeating_timer_ms(50, main_fft, NULL, &timer_mic);
 }
 
-void pegar_amostra(uint8_t *capture_buf) { // Acessa o ADC e armazena o valor no buffer
+void pegar_amostra(uint16_t *capture_buf) { // Acessa o ADC e armazena o valor no buffer
   adc_fifo_drain();
   adc_run(false);
 
   dma_channel_configure(dma_chan, &cfg_dma,
-                        capture_buf,   // dst
-                        &adc_hw->fifo, // src
-                        N_AMOSTRAS,    // transfer count
-                        true           // start immediately
+                        capture_buf,   // Variável de escrita (buffer)
+                        &adc_hw->fifo, // Leitura de dados a partir do ADC
+                        N_AMOSTRAS,    // Quantidade de amostras
+                        true           // Liga o DMA
   );
 
   adc_run(true);

@@ -19,6 +19,6 @@ struct corda_violao {
 extern struct corda_violao cordas[];
 
 extern void configurar_mic();
-extern void pegar_amostra(uint8_t *capture_buf);
+extern void pegar_amostra(uint16_t *capture_buf);
 // extern bool main_fft(struct repeating_timer *t);
 // extern void main_fft();

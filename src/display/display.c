@@ -108,9 +108,9 @@ void escrever_string_display(char *text[], uint8_t *ssd, struct render_area *fra
   render_on_display(ssd, frame_area);
 }
 
-void exibir_leitura_mic(int frequencia_lida, int frequencia_desejada) {
-  sprintf(buffer_freq_lida, "    %d Hz", frequencia_lida);
-  sprintf(buffer_freq_desejada, "    %d Hz", frequencia_desejada);
+void exibir_leitura_mic(float frequencia_lida, float frequencia_desejada) {
+  sprintf(buffer_freq_lida, "    %0.2f Hz", frequencia_lida);
+  sprintf(buffer_freq_desejada, "    %0.2f Hz", frequencia_desejada);
   for (int i = 0; i < 8; i++) {
     if (i == 2) {
       // Substitui a linha 3 pelo valor formatado de "FREQUENCIA LIDA"

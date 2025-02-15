@@ -76,17 +76,6 @@ err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
   return ERR_OK;
 }
 
-// Callback de resolução DNS
-void dns_callback(const char *name, const ip_addr_t *ipaddr, void *callback_arg) {
-  if (ipaddr == NULL) {
-    printf("Falha ao resolver DNS para %s\n", name);
-    return;
-  }
-
-  printf("Resolvido %s para %s\n", name, ipaddr_ntoa(ipaddr));
-  tcp_connect(tcp_client_pcb, ipaddr, 80, enviar_dados);
-}
-
 // Função para enviar dados ao ThingSpeak
 void enviar_para_thingspeak() {
   tcp_client_pcb = tcp_new();

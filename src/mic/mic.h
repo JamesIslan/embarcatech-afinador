@@ -8,11 +8,12 @@
 #define MIC_GPIO 28
 #define N_AMOSTRAS 4000
 
+extern volatile float max_freq;
 extern kiss_fftr_cfg cfg_fftr;
 extern struct repeating_timer timer_mic;
 struct corda_violao {
-  int frequencia_lida;
-  int frequencia_desejada;
+  float frequencia_lida;
+  float frequencia_desejada;
 };
 extern struct corda_violao cordas[];
 

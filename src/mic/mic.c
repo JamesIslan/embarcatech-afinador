@@ -10,6 +10,7 @@
 #include <math.h>
 #include <stdio.h>
 
+volatile float max_freq = 0.0;
 uint8_t buffer_capturado[N_AMOSTRAS];
 kiss_fft_scalar fft_in[N_AMOSTRAS];
 kiss_fft_cpx fft_out[N_AMOSTRAS];
@@ -21,12 +22,12 @@ float freqs[N_AMOSTRAS];
 
 struct repeating_timer timer_mic;
 struct corda_violao cordas[] = {
-  {.frequencia_lida = 0, .frequencia_desejada = 82},   // Corda E grave
-  {.frequencia_lida = 0, .frequencia_desejada = 119},  // Corda B
-  {.frequencia_lida = 0, .frequencia_desejada = 196},  // Corda G
-  {.frequencia_lida = 0, .frequencia_desejada = 247},  // Corda D
-  {.frequencia_lida = 0, .frequencia_desejada = 330},  // Corda A
-  {.frequencia_lida = 0, .frequencia_desejada = 330}}; // Corda E agudo
+  {.frequencia_lida = 0.0, .frequencia_desejada = 82.0},   // Corda E grave
+  {.frequencia_lida = 0.0, .frequencia_desejada = 119.0},  // Corda B
+  {.frequencia_lida = 0.0, .frequencia_desejada = 196.0},  // Corda G
+  {.frequencia_lida = 0.0, .frequencia_desejada = 247.0},  // Corda D
+  {.frequencia_lida = 0.0, .frequencia_desejada = 330.0},  // Corda A
+  {.frequencia_lida = 0.0, .frequencia_desejada = 330.0}}; // Corda E agudo
 
 bool main_fft(struct repeating_timer *t) {
   if (modo_menu) {
@@ -56,8 +57,8 @@ bool main_fft(struct repeating_timer *t) {
       max_idx = i;
     }
   }
-  float max_freq = freqs[max_idx];
-  printf("Greatest Frequency Component: %0.2f Hz\n", max_freq);
+  max_freq = freqs[max_idx];
+  // printf("Greatest Frequency Component: %0.2f Hz\n", max_freq);
   return true;
   //
 

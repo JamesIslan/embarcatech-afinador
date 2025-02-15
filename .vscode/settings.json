@@ -61,6 +61,7 @@
         "display/display.h": "c",
         "joystick.h": "c",
         "wifi.h": "c",
-        "ssd1306.h": "c"
+        "ssd1306.h": "c",
+        "mic.h": "c"
     }
 }

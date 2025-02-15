@@ -39,12 +39,12 @@ int main() {
   configurar_wifi();
   iniciar_display();
 
-  // while (1) {
-  //   enviar_para_thingspeak();
-  //   printf("Dados enviados!");
+  while (1) {
+    enviar_para_thingspeak();
+    printf("Dados enviados!");
 
-  //   sleep_ms(30000); // Aguarda 30 segundos por conta do thingspeak
-  // }
+    sleep_ms(30000); // Aguarda 30 segundos por conta do thingspeak
+  }
 
   while (true) {
     sleep_ms(100); // Reduz o uso da CPU

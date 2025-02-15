@@ -133,11 +133,30 @@ void exibir_bitmap_display(uint8_t text[]) {
   // printf("Escreveu bitmap!\n");
 }
 
-void gerenciar_afinacao() {
+// void gerenciar_afinacao() {
+//   struct corda_violao obj = cordas[display_menu_index];
+//   obj.frequencia_lida = max_freq;
+//   exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
+//   // while (true) {
+//   //   // printf("Objeto: %d\n", obj.frequencia_desejada);
+//   //   printf("Frequência lida: %f", obj.frequencia_lida);
+//   //   busy_wait_ms(50);
+//   // }
+//   // exibir_bitmap_display(menu_afinacao_concluida); // Mensagem de afinação concluída
+// }
+
+bool display_notas_callback() {
+  if (modo_menu) {
+    return false;
+  }
   struct corda_violao obj = cordas[display_menu_index];
-  // printf("Objeto: %d\n", obj.frequencia_desejada);
+  obj.frequencia_lida = max_freq;
   exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
-  // exibir_bitmap_display(menu_afinacao_concluida); // Mensagem de afinação concluída
+  return true;
+}
+
+void gerenciar_afinacao() {
+  add_repeating_timer_ms(100, display_notas_callback, NULL, &timer_display);
 }
 
 void iniciar_display() {

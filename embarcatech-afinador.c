@@ -1,9 +1,4 @@
-#include "hardware/adc.h"
-#include "hardware/clocks.h"
-#include "hardware/dma.h"
-#include "hardware/interp.h"
 #include "hardware/timer.h"
-#include "hardware/uart.h"
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 // Import de dispositivos
@@ -32,9 +27,6 @@ int main() {
     printf("Inicialização do Wi-Fi falhou!\n");
     return -1;
   }
-
-  interp_config cfg = interp_default_config();
-  interp_set_config(interp0, 0, &cfg);
   printf("Configurando Wi-Fi...");
 
   configurar_wifi();
@@ -42,8 +34,7 @@ int main() {
   while (1) {
     enviar_para_thingspeak();
     printf("Dados enviados!");
-
-    sleep_ms(15000); // Aguarda 30 segundos por conta do thingspeak
+    sleep_ms(15000); // Aguarda 15 segundos para enviar outro pacote
   }
 
   while (true) {

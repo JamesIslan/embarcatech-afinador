@@ -41,6 +41,7 @@ add_executable(embarcatech-afinador
         src/botao/botao.c
         src/display/display.c
         src/joystick/joystick.c
+        src/led/led.c
         src/mic/mic.c
         src/wifi/wifi.c
         src/inc/ssd1306_i2c.c

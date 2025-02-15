@@ -7,6 +7,7 @@
 #include "src/botao/botao.h"
 #include "src/display/display.h"
 #include "src/joystick/joystick.h"
+#include "src/led/led.h"
 // #include "src/mic/mic.h"
 #include "src/wifi/wifi.h"
 //
@@ -14,6 +15,8 @@
 
 int main() {
   stdio_init_all();
+  printf("Iniciando LED\n");
+  configurar_led();
   printf("Iniciando display\n");
   configurar_display();
   exibir_bitmap_display(menu_conexao_pendente);

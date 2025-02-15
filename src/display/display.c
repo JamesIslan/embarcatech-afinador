@@ -3,6 +3,7 @@
 #include "../botao/botao.h"
 #include "../inc/ssd1306.h"
 #include "../joystick/joystick.h"
+#include "../led/led.h"
 #include "../mic/mic.h"
 #include "hardware/adc.h"
 #include "hardware/i2c.h"
@@ -159,15 +160,20 @@ bool display_notas_callback() {
   obj.frequencia_lida = max_freq;
   float diferenca_leitura = fabs(obj.frequencia_desejada - obj.frequencia_lida);
   if (diferenca_leitura <= 5) {
-    configurar_interrupcao_botao(true); // Permitir pressionamento
+    acender_led_verde();
     busy_wait_ms(2000);
+    configurar_interrupcao_botao(true); // Permitir pressionamento
     exibir_bitmap_display(menu_afinacao_concluida);
     cancel_repeating_timer(&timer_mic);
     return false;
-  } else {
-    exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
-    return true;
   }
+  if (5 < diferenca_leitura && diferenca_leitura < 10) {
+    acender_led_amarelo();
+  } else {
+    acender_led_vermelho();
+  }
+  exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
+  return true;
 }
 
 void gerenciar_afinacao() {

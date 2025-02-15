@@ -5,6 +5,7 @@
 #include <stdio.h>
 // Temp
 #include "../bitmaps/bitmaps.h"
+#include "../led/led.h"
 #include "../mic/mic.h"
 // Buffer para armazenar a descrição do evento
 static char event_str[128];
@@ -44,6 +45,7 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
   modo_menu = !modo_menu;
   if (modo_menu) {
     busy_wait_ms(200);
+    apagar_led(); // Apaga LED se estiver aceso
     // Entrar no menu
     kiss_fft_free(cfg_fftr);
     iniciar_display();

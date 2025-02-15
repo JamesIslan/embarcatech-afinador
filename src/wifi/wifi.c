@@ -1,4 +1,5 @@
 #include "wifi.h"
+#include "../bitmaps/bitmaps.h"
 #include "../display/display.h"
 #include "../inc/ssd1306.h"
 #include "env.h"
@@ -9,27 +10,31 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 #include <string.h>
-
 // static struct tcp_pcb *tcp_client_pcb;
 char request[256];
 static struct tcp_pcb *tcp_client_pcb;
 
-int configurar_wifi() {
+void configurar_wifi() {
   cyw43_arch_enable_sta_mode();
-
   printf("Conectando ao Wi-Fi...\n");
-  uint8_t status_conexao = cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_SENHA, CYW43_AUTH_WPA2_AES_PSK, 30000);
 
-  if (status_conexao) {
-    printf("Falha ao conectar.\n");
-    return 1;
-  } else {
-    printf("Conectado!\n");
-    printf("%s\n", WIFI_SSID);
-    printf("%s\n", WIFI_SENHA);
-    uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
-    printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
-    return 0;
+  while (true) {
+    uint8_t status_conexao = cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_SENHA, CYW43_AUTH_WPA2_AES_PSK, 30000);
+    if (status_conexao) {
+      printf("Falha ao conectar. Tentando novamente...\n");
+      exibir_bitmap_display(menu_conexao_falha);
+      sleep_ms(3000);
+      continue;
+    } else {
+      printf("Conectado!\n");
+      exibir_bitmap_display(menu_conexao_concluida);
+      printf("%s\n", WIFI_SSID);
+      printf("%s\n", WIFI_SENHA);
+      uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
+      printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
+      sleep_ms(3000);
+      break;
+    }
   }
 }
 

@@ -35,11 +35,9 @@ int main() {
   interp_config cfg = interp_default_config();
   interp_set_config(interp0, 0, &cfg);
   printf("Configurando Wi-Fi...");
-  if (!configurar_wifi()) {
-    exibir_bitmap_display(menu_conexao_concluida);
-    printf("Setup concluído!\n");
-    iniciar_display();
-  }
+
+  configurar_wifi();
+  iniciar_display();
 
   // while (1) {
   //   enviar_para_thingspeak();

@@ -57,6 +57,7 @@
         "inet.h": "c",
         "uart.h": "c",
         "kiss_fftr.h": "c",
-        "botao.h": "c"
+        "botao.h": "c",
+        "display.h": "c"
     }
 }

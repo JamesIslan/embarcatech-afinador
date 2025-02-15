@@ -76,7 +76,6 @@ target_link_libraries(embarcatech-afinador
         hardware_dma
         hardware_i2c
         hardware_interp
-        hardware_spi
         hardware_timer
         pico_cyw43_arch_lwip_threadsafe_background
         )

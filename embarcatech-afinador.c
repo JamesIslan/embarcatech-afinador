@@ -2,7 +2,6 @@
 #include "hardware/clocks.h"
 #include "hardware/dma.h"
 #include "hardware/interp.h"
-#include "hardware/spi.h"
 #include "hardware/timer.h"
 #include "hardware/uart.h"
 #include "pico/cyw43_arch.h"
@@ -10,8 +9,8 @@
 // Import de dispositivos
 #include "src/bitmaps.h"
 #include "src/botao.h"
-#include "src/constants.h"
 #include "src/display.h"
+#include "src/env.h"
 #include "src/joystick.h"
 // #include "src/mic.h"
 #include "src/wifi.h"

@@ -7,6 +7,7 @@
 #include "hardware/adc.h"
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
+#include <math.h>
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>
 #include <string.h>
@@ -156,11 +157,19 @@ bool display_notas_callback() {
   }
   struct corda_violao obj = cordas[display_menu_index];
   obj.frequencia_lida = max_freq;
-  exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
+  float diferenca_leitura = fabs(obj.frequencia_desejada - obj.frequencia_lida);
+  if (diferenca_leitura <= 5) {
+    exibir_bitmap_display(menu_afinacao_concluida);
+    configurar_interrupcao_botao(true); // Permitir pressionamento
+    return false;
+  } else {
+    exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
+  }
   return true;
 }
 
 void gerenciar_afinacao() {
+  configurar_interrupcao_botao(false);
   add_repeating_timer_ms(50, display_notas_callback, NULL, &timer_display);
 }
 

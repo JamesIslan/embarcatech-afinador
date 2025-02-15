@@ -54,11 +54,15 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
   }
 }
 
+void configurar_interrupcao_botao(bool estado) {
+  gpio_set_irq_enabled_with_callback(PINO_BOTAO, GPIO_IRQ_EDGE_FALL && GPIO_IRQ_EDGE_RISE, estado, &callback_botao_pressionado);
+}
+
 void configurar_botao() {
   gpio_init(PINO_BOTAO);
   gpio_set_dir(PINO_BOTAO, GPIO_IN);
   gpio_pull_up(PINO_BOTAO);
-  gpio_set_irq_enabled_with_callback(PINO_BOTAO, GPIO_IRQ_EDGE_FALL && GPIO_IRQ_EDGE_RISE, true, &callback_botao_pressionado);
+  configurar_interrupcao_botao(true);
   // Talvez possa configurar esse irq como false enquanto a corda não é afinada
   // printf("IRQ definido!");
 }

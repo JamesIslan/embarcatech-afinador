@@ -4,3 +4,4 @@
 
 extern volatile bool modo_menu;
 void configurar_botao();
+extern void configurar_interrupcao_botao(bool estado);

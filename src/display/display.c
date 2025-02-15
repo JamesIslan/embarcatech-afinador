@@ -68,7 +68,7 @@ bool joystick_callback(struct repeating_timer *t) {
     return false;
   }
   adc_select_input(ADC_CHANNEL_VRX); // X axis
-  sleep_us(2);
+  // sleep_us(2);
   uint16_t vrx_value = adc_read();
   // printf("X: %d", vrx_value);
   if (vrx_value >= 4000) { // Joystick up?
@@ -159,13 +159,14 @@ bool display_notas_callback() {
   obj.frequencia_lida = max_freq;
   float diferenca_leitura = fabs(obj.frequencia_desejada - obj.frequencia_lida);
   if (diferenca_leitura <= 5) {
-    exibir_bitmap_display(menu_afinacao_concluida);
     configurar_interrupcao_botao(true); // Permitir pressionamento
+    busy_wait_ms(2000);
+    exibir_bitmap_display(menu_afinacao_concluida);
     return false;
   } else {
     exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
+    return true;
   }
-  return true;
 }
 
 void gerenciar_afinacao() {

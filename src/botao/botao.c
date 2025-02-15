@@ -28,10 +28,10 @@ void gpio_event_string(char *buf, uint32_t events) {
       }
       events &= ~mask; // Remove o evento já processado
 
-      // if (events) { // Se houver mais eventos, adiciona ", "
-      //   *buf++ = ',';
-      //   *buf++ = ' ';
-      // }
+      if (events) { // Se houver mais eventos, adiciona ", "
+        *buf++ = ',';
+        *buf++ = ' ';
+      }
     }
   }
   *buf++ = '\0'; // Finaliza a string

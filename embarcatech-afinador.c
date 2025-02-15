@@ -20,6 +20,7 @@
 int main() {
   stdio_init_all();
   printf("Iniciando display\n");
+  configurar_display();
   exibir_bitmap_display(menu_conexao_pendente);
   sleep_ms(3000);
   printf("Iniciando configuração do joystick\n");

@@ -14,6 +14,7 @@
 struct repeating_timer timer_joystick;
 struct repeating_timer timer_display;
 volatile int display_menu_index = 0;
+volatile bool display_modo_bitmap = false;
 
 ssd1306_t ssd_bm;
 char buffer_freq_lida[128];
@@ -46,16 +47,14 @@ void configurar_display() {
   gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
   gpio_pull_up(I2C_SDA);
   gpio_pull_up(I2C_SCL);
-  ssd1306_init();
   calculate_render_area_buffer_length(&frame_area);
 }
 
 void configurar_display_texto() {
-  configurar_display();
+  ssd1306_init();
 }
 
 void configurar_display_bitmap() {
-  configurar_display();
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
 }
@@ -93,7 +92,10 @@ bool joystick_callback(struct repeating_timer *t) {
 // }
 
 void escrever_string_display(char *text[], uint8_t *ssd, struct render_area *frame_area, size_t line_count) {
-  configurar_display_texto();
+  if (display_modo_bitmap) {
+    configurar_display_texto();
+    display_modo_bitmap = false;
+  }
   memset(ssd, 0, ssd1306_buffer_length);
   int y_axis = 0;
 
@@ -120,15 +122,18 @@ void exibir_leitura_mic(int frequencia_lida, int frequencia_desejada) {
       TEMPLATE_LEITURA_MIC_FORMATADO[i] = TEMPLATE_LEITURA_MIC[i];
     }
   }
-  for (int i = 0; i < 8; i++) {
-    printf("%s\n", TEMPLATE_LEITURA_MIC_FORMATADO[i]);
-  }
+  // for (int i = 0; i < 8; i++) {
+  //   printf("%s\n", TEMPLATE_LEITURA_MIC_FORMATADO[i]);
+  // }
   escrever_string_display(TEMPLATE_LEITURA_MIC_FORMATADO, ssd, &frame_area, count_of(TEMPLATE_LEITURA_MIC_FORMATADO));
   // printf("Escreveu string!\n");
 }
 
 void exibir_bitmap_display(uint8_t text[]) {
-  configurar_display_bitmap();
+  if (!display_modo_bitmap) {
+    configurar_display_bitmap();
+    display_modo_bitmap = true;
+  }
   ssd1306_draw_bitmap(&ssd_bm, text);
   // printf("Escreveu bitmap!\n");
 }

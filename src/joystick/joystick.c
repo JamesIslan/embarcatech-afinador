@@ -3,6 +3,7 @@
 #include "../botao/botao.h"
 #include "../display/display.h"
 #include "hardware/adc.h"
+#include <stdio.h>
 
 struct repeating_timer timer_joystick; // Mover para pasta de joystick
 

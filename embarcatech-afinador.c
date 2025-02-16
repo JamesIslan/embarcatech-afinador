@@ -19,18 +19,19 @@ int main() {
   configurar_display();
   exibir_bitmap_display(menu_conexao_pendente);
   sleep_ms(3000);
-  printf("Iniciando configuração do joystick\n");
-  setup_joystick();
-  printf("Iniciando configuração do botão\n");
-  configurar_botao();
   printf("Iniciando configuração do microfone!\n");
   if (cyw43_arch_init()) {
     printf("Inicialização do Wi-Fi falhou!\n");
     return -1;
   }
   printf("Configurando Wi-Fi...");
-
   configurar_wifi();
+
+  printf("Iniciando configuração do joystick\n");
+  setup_joystick();
+  printf("Iniciando configuração do botão\n");
+  configurar_botao();
+
   iniciar_display();
   configurar_thingspeak();
 

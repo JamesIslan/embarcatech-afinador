@@ -11,6 +11,7 @@ char request[256];
 static struct tcp_pcb *tcp_client_pcb;
 struct repeating_timer timer_thingspeak;
 
+// Configuração inicial do módulo wi-fi
 void configurar_wifi() {
   cyw43_arch_enable_sta_mode();
   printf("Conectando ao Wi-Fi...\n");
@@ -25,8 +26,6 @@ void configurar_wifi() {
     } else {
       printf("Conectado!\n");
       exibir_bitmap_display(menu_conexao_concluida);
-      printf("%s\n", WIFI_SSID);
-      printf("%s\n", WIFI_SENHA);
       uint8_t *ip_address = (uint8_t *)&(cyw43_state.netif[0].ip_addr.addr);
       printf("Endereço de IP %d.%d.%d.%d\n", ip_address[0], ip_address[1], ip_address[2], ip_address[3]);
       sleep_ms(3000);
@@ -47,12 +46,12 @@ err_t tcp_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t e
   size_t copy_len = (p->len < sizeof(buffer) - 1) ? p->len : sizeof(buffer) - 1;
   pbuf_copy_partial(p, buffer, copy_len, 0);
   buffer[copy_len] = '\0';
-  // printf("Recebido: %s\n", buffer);
 
   pbuf_free(p);
   return ERR_OK;
 }
 
+// Realiza o envio de dados para a nuvem via HTTP
 err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
   if (err != ERR_OK) {
     printf("Falha ao conectar ao servidor.\n");
@@ -74,15 +73,15 @@ err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
   return ERR_OK;
 }
 
-// Função para enviar dados ao ThingSpeak
-bool conectar_thingspeak(struct repeating_timer *t) {
+// Função callback para enviar dados ao ThingSpeak
+// Retorna: true para continuar rodando; false para parar de rodar
+bool conectar_thingspeak_callback(struct repeating_timer *t) {
   tcp_client_pcb = tcp_new();
   if (!tcp_client_pcb) {
     printf("Falha ao criar o TCP PCB.\n");
     return false;
   }
 
-  printf("Resolvendo %s...\n", "api.thingspeak.com");
   ip_addr_t server_ip;
   ipaddr_aton(THINGSPEAK_IP, &server_ip);
   if (true) {
@@ -94,6 +93,7 @@ bool conectar_thingspeak(struct repeating_timer *t) {
   return true;
 }
 
+// Adiciona um temporizador dinâmico para enviar dados ao ThingSpeak
 void configurar_thingspeak() {
-  add_repeating_timer_ms(THINGSPEAK_INTERVALO, conectar_thingspeak, NULL, &timer_thingspeak);
+  add_repeating_timer_ms(THINGSPEAK_INTERVALO, conectar_thingspeak_callback, NULL, &timer_thingspeak);
 }

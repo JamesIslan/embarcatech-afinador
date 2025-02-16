@@ -9,7 +9,7 @@
 #define FREQUENCIA_MAXIMA_CAPTURA 500
 #define N_AMOSTRAS 6500
 
-extern volatile float max_freq;
+extern volatile float max_freq; // Variável de frequência máxima do FFT, utilizada por outras partes do programa
 extern kiss_fftr_cfg cfg_fftr;
 extern struct repeating_timer timer_mic;
 struct corda_violao {

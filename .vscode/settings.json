@@ -45,11 +45,15 @@
         "**/Thumbs.db": true,
         "/mnt/dev/projects/display-apps": true,
         "bitmaps": true,
-        "output": true
+        "output": true,
+        ".gitignore": true,
+        "env-example.h": true
     },
     "hide-files.files": [
         "bitmaps",
-        "output"
+        "output",
+        ".gitignore",
+        "env-example.h"
     ],
     "files.associations": {
         "wifi/wifi.h": "c",

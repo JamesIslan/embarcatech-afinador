@@ -34,23 +34,6 @@ void configurar_wifi() {
   }
 }
 
-// Callback quando dados são recebidos
-err_t tcp_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err) {
-  if (p == NULL) {
-    printf("Conexão encerrada pelo servidor.\n");
-    tcp_close(tpcb);
-    return ERR_OK;
-  }
-
-  char buffer[512]; // Buffer maior para evitar overflow
-  size_t copy_len = (p->len < sizeof(buffer) - 1) ? p->len : sizeof(buffer) - 1;
-  pbuf_copy_partial(p, buffer, copy_len, 0);
-  buffer[copy_len] = '\0';
-
-  pbuf_free(p);
-  return ERR_OK;
-}
-
 // Realiza o envio de dados para a nuvem via HTTP
 err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
   if (err != ERR_OK) {
@@ -68,7 +51,6 @@ err_t enviar_dados(void *arg, struct tcp_pcb *tpcb, err_t err) {
 
   tcp_write(tcp_client_pcb, request, strlen(request), TCP_WRITE_FLAG_COPY);
   tcp_output(tcp_client_pcb);
-  tcp_recv(tcp_client_pcb, tcp_recv_callback);
 
   return ERR_OK;
 }

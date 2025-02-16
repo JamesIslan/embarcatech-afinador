@@ -1,5 +1,5 @@
-#include "../fft/kiss_fftr.h"
 #include "hardware/dma.h"
+#include "lib/fft/kiss_fftr.h"
 
 #define MIC_CANAL_ADC 2
 #define MIC_GPIO 28

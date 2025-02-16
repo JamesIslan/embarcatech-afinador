@@ -44,9 +44,9 @@ add_executable(embarcatech-afinador
         src/led/led.c
         src/mic/mic.c
         src/wifi/wifi.c
-        src/inc/ssd1306_i2c.c
-        src/fft/kiss_fft.c
-        src/fft/kiss_fftr.c
+        lib/inc/ssd1306_i2c.c
+        lib/fft/kiss_fft.c
+        lib/fft/kiss_fftr.c
         )
 
 # add_library(kiss_fftr kiss_fftr.c) # FFT

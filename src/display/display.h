@@ -1,4 +1,4 @@
-#include "../inc/ssd1306.h"
+#include "lib/inc/ssd1306.h"
 
 #define DISPLAY_PINO_SDA 14
 #define DISPLAY_PINO_SCL 15

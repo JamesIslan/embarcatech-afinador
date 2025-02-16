@@ -44,10 +44,12 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "/mnt/dev/projects/display-apps": true,
-        "bitmaps": true
+        "bitmaps": true,
+        "output": true
     },
     "hide-files.files": [
-        "bitmaps"
+        "bitmaps",
+        "output"
     ],
     "files.associations": {
         "wifi/wifi.h": "c",

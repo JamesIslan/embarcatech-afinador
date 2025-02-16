@@ -1,7 +1,7 @@
 #include "../inc/ssd1306.h"
 
-#define I2C_SDA 14
-#define I2C_SCL 15
+#define DISPLAY_PINO_SDA 14
+#define DISPLAY_PINO_SCL 15
 extern ssd1306_t ssd_bm;
 
 extern void configurar_display();

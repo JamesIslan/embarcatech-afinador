@@ -1,19 +1,16 @@
 #include "display.h"
 #include "../bitmaps/bitmaps.h"
 #include "../botao/botao.h"
-#include "../inc/ssd1306.h"
-#include "../joystick/joystick.h"
+#include "../joystick/joystick.h" // Mover para pasta de joystick
 #include "../led/led.h"
 #include "../mic/mic.h"
-#include "hardware/adc.h"
+#include "hardware/adc.h" // Mover para pasta de joystick
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
-#include <math.h>
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>
-#include <string.h>
 
-struct repeating_timer timer_joystick;
+struct repeating_timer timer_joystick; // Mover para pasta de joystick
 struct repeating_timer timer_display;
 volatile int display_menu_index = 0;
 volatile bool display_modo_bitmap = false;
@@ -45,10 +42,10 @@ struct render_area frame_area = {
 
 void configurar_display() {
   i2c_init(i2c1, ssd1306_i2c_clock * 1000);
-  gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
-  gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
-  gpio_pull_up(I2C_SDA);
-  gpio_pull_up(I2C_SCL);
+  gpio_set_function(DISPLAY_PINO_SDA, GPIO_FUNC_I2C);
+  gpio_set_function(DISPLAY_PINO_SCL, GPIO_FUNC_I2C);
+  gpio_pull_up(DISPLAY_PINO_SDA);
+  gpio_pull_up(DISPLAY_PINO_SCL);
   calculate_render_area_buffer_length(&frame_area);
 }
 
@@ -61,14 +58,14 @@ void configurar_display_bitmap() {
   ssd1306_config(&ssd_bm);
 }
 
-bool joystick_callback(struct repeating_timer *t) {
+bool joystick_callback(struct repeating_timer *t) { // Mover para pasta de joystick
   // printf("Entrando no joystick callback\n");
   if (!modo_menu) {
     // cancel_repeating_timer(&timer_joystick);
     // printf("Retornando false joystick callback\n");
     return false;
   }
-  adc_select_input(ADC_CHANNEL_VRX); // X axis
+  adc_select_input(VRX_CANAL_ADC); // X axis
   // sleep_us(2);
   uint16_t vrx_value = adc_read();
   // printf("X: %d", vrx_value);
@@ -183,7 +180,7 @@ void gerenciar_afinacao() {
 void iniciar_display() {
   // sleep_ms(200);
   exibir_bitmap_display(menu_opcoes[display_menu_index]);
-  cancel_repeating_timer(&timer_joystick);
-  add_repeating_timer_ms(100, joystick_callback, NULL, &timer_joystick);
+  cancel_repeating_timer(&timer_joystick);                               // Mover para pasta de joystick
+  add_repeating_timer_ms(100, joystick_callback, NULL, &timer_joystick); // Mover para pasta de joystick
   // add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

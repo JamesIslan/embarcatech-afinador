@@ -43,9 +43,12 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "/mnt/dev/projects/display-apps": true
+        "/mnt/dev/projects/display-apps": true,
+        "bitmaps": true
     },
-    "hide-files.files": [],
+    "hide-files.files": [
+        "bitmaps"
+    ],
     "files.associations": {
         "wifi/wifi.h": "c",
         "cyw43_arch.h": "c",
@@ -63,6 +66,11 @@
         "wifi.h": "c",
         "ssd1306.h": "c",
         "mic.h": "c",
-        "botao.h": "c"
+        "botao.h": "c",
+        "led.h": "c",
+        "bitmaps.h": "c",
+        "stdlib.h": "c",
+        "stdbool.h": "c",
+        "adc.h": "c"
     }
 }

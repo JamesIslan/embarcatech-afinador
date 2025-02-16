@@ -3,9 +3,7 @@
 
 #include "mic.h"
 #include "../botao/botao.h"
-#include "../fft/kiss_fftr.h"
 #include "hardware/adc.h"
-#include "hardware/dma.h"
 #include "pico/stdlib.h"
 #include <math.h>
 #include <stdio.h>

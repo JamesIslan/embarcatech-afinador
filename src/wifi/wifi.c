@@ -1,17 +1,12 @@
 #include "wifi.h"
 #include "../bitmaps/bitmaps.h"
 #include "../display/display.h"
-#include "../inc/ssd1306.h"
 #include "../mic/mic.h"
 #include "env.h"
-#include "lwip/dns.h"
-#include "lwip/pbuf.h"
-#include "lwip/tcp.h"
-#include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
 #include <string.h>
-// static struct tcp_pcb *tcp_client_pcb;
+
 char request[256];
 static struct tcp_pcb *tcp_client_pcb;
 struct repeating_timer timer_thingspeak;

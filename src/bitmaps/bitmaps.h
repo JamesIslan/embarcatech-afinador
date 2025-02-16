@@ -1,5 +1,4 @@
 #include "pico/stdlib.h"
-#include <stdio.h>
 
 extern uint8_t menu_opcao_um[];
 extern uint8_t menu_opcao_dois[];

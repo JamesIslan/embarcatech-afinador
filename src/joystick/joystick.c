@@ -3,5 +3,5 @@
 
 void setup_joystick() {
   adc_init();
-  adc_gpio_init(VRX_PIN); // Set VRX_PIN to ADC input
+  adc_gpio_init(JOYSTICK_PINO_VRX); // Define JOYSTICK_PINO_VRX como input ADC
 }

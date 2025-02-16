@@ -1,6 +1,6 @@
-#include "hardware/timer.h"
 #include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
+#include <stdio.h>
 // Import de dispositivos
 #include "env.h"
 #include "src/bitmaps/bitmaps.h"
@@ -8,10 +8,8 @@
 #include "src/display/display.h"
 #include "src/joystick/joystick.h"
 #include "src/led/led.h"
-// #include "src/mic/mic.h"
 #include "src/wifi/wifi.h"
 //
-#include <stdio.h>
 
 int main() {
   stdio_init_all();

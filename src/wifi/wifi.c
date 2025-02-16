@@ -95,5 +95,5 @@ bool conectar_thingspeak(struct repeating_timer *t) {
 }
 
 void configurar_thingspeak() {
-  add_repeating_timer_ms(15000, conectar_thingspeak, NULL, &timer_thingspeak);
+  add_repeating_timer_ms(THINGSPEAK_INTERVALO, conectar_thingspeak, NULL, &timer_thingspeak);
 }

@@ -21,13 +21,16 @@ uint dma_chan;
 float freqs[N_AMOSTRAS];
 
 struct repeating_timer timer_mic;
+
+// Frequências retiradas de:
+// https://en.wikipedia.org/wiki/Guitar_tunings
 struct corda_violao cordas[] = {
-  {.frequencia_lida = 0.0, .frequencia_desejada = 82.0},   // Corda E grave
-  {.frequencia_lida = 0.0, .frequencia_desejada = 119.0},  // Corda B
-  {.frequencia_lida = 0.0, .frequencia_desejada = 196.0},  // Corda G
-  {.frequencia_lida = 0.0, .frequencia_desejada = 247.0},  // Corda D
-  {.frequencia_lida = 0.0, .frequencia_desejada = 330.0},  // Corda A
-  {.frequencia_lida = 0.0, .frequencia_desejada = 330.0}}; // Corda E agudo
+  {.frequencia_lida = 0.0, .frequencia_desejada = 82.41},   // Corda E grave
+  {.frequencia_lida = 0.0, .frequencia_desejada = 110.0},   // Corda A
+  {.frequencia_lida = 0.0, .frequencia_desejada = 146.83},  // Corda D
+  {.frequencia_lida = 0.0, .frequencia_desejada = 196.0},   // Corda B
+  {.frequencia_lida = 0.0, .frequencia_desejada = 246.94},  // Corda G
+  {.frequencia_lida = 0.0, .frequencia_desejada = 329.63}}; // Corda E agudo
 
 bool main_fft(struct repeating_timer *t) {
   if (modo_menu) {

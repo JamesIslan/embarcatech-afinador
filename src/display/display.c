@@ -1,16 +1,13 @@
 #include "display.h"
 #include "../bitmaps/bitmaps.h"
 #include "../botao/botao.h"
-#include "../joystick/joystick.h" // Mover para pasta de joystick
 #include "../led/led.h"
 #include "../mic/mic.h"
-#include "hardware/adc.h" // Mover para pasta de joystick
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 #include <stdbool.h> // Adicione esta linha
 #include <stdio.h>
 
-struct repeating_timer timer_joystick; // Mover para pasta de joystick
 struct repeating_timer timer_display;
 volatile int display_menu_index = 0;
 volatile bool display_modo_bitmap = false;
@@ -56,27 +53,6 @@ void configurar_display_texto() {
 void configurar_display_bitmap() {
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
-}
-
-bool joystick_callback(struct repeating_timer *t) { // Mover para pasta de joystick
-  // printf("Entrando no joystick callback\n");
-  if (!modo_menu) {
-    // cancel_repeating_timer(&timer_joystick);
-    // printf("Retornando false joystick callback\n");
-    return false;
-  }
-  adc_select_input(VRX_CANAL_ADC); // X axis
-  // sleep_us(2);
-  uint16_t vrx_value = adc_read();
-  // printf("X: %d", vrx_value);
-  if (vrx_value >= 4000) { // Joystick up?
-    display_menu_index = (display_menu_index == 0) ? 5 : --display_menu_index;
-    exibir_bitmap_display(menu_opcoes[display_menu_index]);
-  } else if (vrx_value <= 100) { // Joystick down?
-    display_menu_index = (display_menu_index == 5) ? 0 : ++display_menu_index;
-    exibir_bitmap_display(menu_opcoes[display_menu_index]);
-  }
-  return true;
 }
 
 // bool display_callback(struct repeating_timer *t) {
@@ -180,7 +156,5 @@ void gerenciar_afinacao() {
 void iniciar_display() {
   // sleep_ms(200);
   exibir_bitmap_display(menu_opcoes[display_menu_index]);
-  cancel_repeating_timer(&timer_joystick);                               // Mover para pasta de joystick
-  add_repeating_timer_ms(100, joystick_callback, NULL, &timer_joystick); // Mover para pasta de joystick
   // add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

@@ -1,5 +1,6 @@
 #include "botao.h"
 #include "../display/display.h"
+#include "../joystick/joystick.h"
 #include "../led/led.h"
 #include "../mic/mic.h"
 #include "pico/stdlib.h"
@@ -45,6 +46,7 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
     apagar_led(); // Apaga LED se estiver aceso
     // Entrar no menu
     kiss_fft_free(cfg_fftr);
+    iniciar_temporizador_joystick();
     iniciar_display();
   } else {
     busy_wait_ms(200);

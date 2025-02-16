@@ -47,7 +47,7 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
     // Entrar no menu
     kiss_fft_free(cfg_fftr);
     iniciar_temporizador_joystick();
-    iniciar_display();
+    iniciar_menu();
   } else {
     busy_wait_ms(200);
     configurar_mic();

@@ -32,7 +32,7 @@ int main() {
   printf("Iniciando configuração do botão\n");
   configurar_botao();
 
-  iniciar_display();
+  iniciar_menu();
   configurar_thingspeak();
 
   while (true) {

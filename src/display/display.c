@@ -159,15 +159,14 @@ bool display_notas_callback() {
   struct corda_violao obj = cordas[display_menu_index];
   obj.frequencia_lida = max_freq;
   float diferenca_leitura = fabs(obj.frequencia_desejada - obj.frequencia_lida);
-  if (diferenca_leitura <= 5) {
+  if (diferenca_leitura <= 4) {
     acender_led_verde();
-    busy_wait_ms(2000);
     configurar_interrupcao_botao(true); // Permitir pressionamento
     exibir_bitmap_display(menu_afinacao_concluida);
     cancel_repeating_timer(&timer_mic);
     return false;
   }
-  if (5 < diferenca_leitura && diferenca_leitura < 10) {
+  if (4 < diferenca_leitura && diferenca_leitura < 10) {
     acender_led_amarelo();
   } else {
     acender_led_vermelho();

@@ -55,17 +55,6 @@ void configurar_display_bitmap() {
   ssd1306_config(&ssd_bm);
 }
 
-// bool display_callback(struct repeating_timer *t) {
-//   if (!modo_menu) {
-//     cancel_repeating_timer(&timer_display);
-//     printf("Retornando false display callback\n");
-//     return false;
-//   }
-//   ssd1306_draw_bitmap(&ssd_bm, menu_opcoes[display_menu_index]);
-//   printf("Callback display rodou");
-//   return true;
-// }
-
 void escrever_string_display(char *text[], uint8_t *ssd, struct render_area *frame_area, size_t line_count) {
   if (display_modo_bitmap) {
     configurar_display_texto();
@@ -97,11 +86,7 @@ void exibir_leitura_mic(float frequencia_lida, float frequencia_desejada) {
       TEMPLATE_LEITURA_MIC_FORMATADO[i] = TEMPLATE_LEITURA_MIC[i];
     }
   }
-  // for (int i = 0; i < 8; i++) {
-  //   printf("%s\n", TEMPLATE_LEITURA_MIC_FORMATADO[i]);
-  // }
   escrever_string_display(TEMPLATE_LEITURA_MIC_FORMATADO, ssd, &frame_area, count_of(TEMPLATE_LEITURA_MIC_FORMATADO));
-  // printf("Escreveu string!\n");
 }
 
 void exibir_bitmap_display(uint8_t text[]) {
@@ -110,20 +95,7 @@ void exibir_bitmap_display(uint8_t text[]) {
     display_modo_bitmap = true;
   }
   ssd1306_draw_bitmap(&ssd_bm, text);
-  // printf("Escreveu bitmap!\n");
 }
-
-// void gerenciar_afinacao() {
-//   struct corda_violao obj = cordas[display_menu_index];
-//   obj.frequencia_lida = max_freq;
-//   exibir_leitura_mic(obj.frequencia_lida, obj.frequencia_desejada);
-//   // while (true) {
-//   //   // printf("Objeto: %d\n", obj.frequencia_desejada);
-//   //   printf("Frequência lida: %f", obj.frequencia_lida);
-//   //   busy_wait_ms(50);
-//   // }
-//   // exibir_bitmap_display(menu_afinacao_concluida); // Mensagem de afinação concluída
-// }
 
 bool display_notas_callback() {
   if (modo_menu) {
@@ -153,8 +125,6 @@ void gerenciar_afinacao() {
   add_repeating_timer_ms(50, display_notas_callback, NULL, &timer_display);
 }
 
-void iniciar_display() {
-  // sleep_ms(200);
+void iniciar_menu() {
   exibir_bitmap_display(menu_opcoes[display_menu_index]);
-  // add_repeating_timer_ms(75, display_callback, NULL, &timer_display);
 }

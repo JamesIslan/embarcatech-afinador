@@ -30,7 +30,7 @@ struct corda_violao cordas[] = {
   {.frequencia_lida = 0.0, .frequencia_desejada = 246.94},  // Corda G
   {.frequencia_lida = 0.0, .frequencia_desejada = 329.63}}; // Corda E agudo
 
-bool main_fft(struct repeating_timer *t) {
+bool executar_fft(struct repeating_timer *t) {
   if (modo_menu) {
     printf("Saindo do microfone\n");
     return false;
@@ -96,7 +96,7 @@ void configurar_mic() { // Configura ADC e DMA do microfone
   }
   cfg_fftr = kiss_fftr_alloc(N_AMOSTRAS, false, 0, 0);
   cancel_repeating_timer(&timer_mic);
-  add_repeating_timer_ms(50, main_fft, NULL, &timer_mic);
+  add_repeating_timer_ms(50, executar_fft, NULL, &timer_mic);
 }
 
 void pegar_amostra(uint16_t *capture_buf) { // Acessa o ADC e armazena o valor no buffer

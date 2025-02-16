@@ -26,6 +26,7 @@ void acender_led_vermelho() {
   gpio_put(PINO_LED_AZUL, 0);
 }
 
+// Configura os pinos do LED como saída GPIO
 void configurar_led() {
   gpio_init(PINO_LED_VERMELHO);
   gpio_set_dir(PINO_LED_VERMELHO, GPIO_OUT);

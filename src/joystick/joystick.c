@@ -1,6 +1,6 @@
 #include "joystick.h"
-#include "../bitmaps/bitmaps.h"
 #include "../botao/botao.h"
+#include "../display/bitmaps.h"
 #include "../display/display.h"
 #include "hardware/adc.h"
 #include <stdio.h>

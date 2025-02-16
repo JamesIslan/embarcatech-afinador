@@ -37,8 +37,8 @@ pico_sdk_init()
 
 add_executable(embarcatech-afinador
         embarcatech-afinador.c
-        src/bitmaps/bitmaps.c
         src/botao/botao.c
+        src/display/bitmaps.c
         src/display/display.c
         src/joystick/joystick.c
         src/led/led.c

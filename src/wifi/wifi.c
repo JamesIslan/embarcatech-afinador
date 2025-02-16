@@ -1,5 +1,5 @@
 #include "wifi.h"
-#include "../bitmaps/bitmaps.h"
+#include "../display/bitmaps.h"
 #include "../display/display.h"
 #include "../mic/mic.h"
 #include "env.h"

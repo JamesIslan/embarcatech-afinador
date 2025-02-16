@@ -1,8 +1,8 @@
 #include "display.h"
-#include "../bitmaps/bitmaps.h"
 #include "../botao/botao.h"
 #include "../led/led.h"
 #include "../mic/mic.h"
+#include "bitmaps.h"
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 #include <stdbool.h> // Adicione esta linha

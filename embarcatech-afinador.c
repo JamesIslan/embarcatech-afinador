@@ -3,8 +3,8 @@
 #include <stdio.h>
 // Import de dispositivos
 #include "env.h"
-#include "src/bitmaps/bitmaps.h"
 #include "src/botao/botao.h"
+#include "src/display/bitmaps.h"
 #include "src/display/display.h"
 #include "src/joystick/joystick.h"
 #include "src/led/led.h"

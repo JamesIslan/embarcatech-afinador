@@ -39,7 +39,7 @@ void iniciar_temporizador_joystick() {
 }
 
 // Configuração inicial do joystick
-void setup_joystick() {
+void configurar_joystick() {
   adc_init();
   adc_gpio_init(JOYSTICK_PINO_VRX); // Define JOYSTICK_PINO_VRX como input ADC
   iniciar_temporizador_joystick();

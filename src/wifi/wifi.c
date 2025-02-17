@@ -66,12 +66,7 @@ bool conectar_thingspeak_callback(struct repeating_timer *t) {
 
   ip_addr_t server_ip;
   ipaddr_aton(THINGSPEAK_IP, &server_ip);
-  if (true) {
-    printf("DNS resolvido imediatamente: %s\n", ipaddr_ntoa(&server_ip));
-    tcp_connect(tcp_client_pcb, &server_ip, 80, enviar_dados);
-  } else {
-    tcp_close(tcp_client_pcb);
-  }
+  tcp_connect(tcp_client_pcb, &server_ip, THINGSPEAK_PORT, enviar_dados);
   return true;
 }
 

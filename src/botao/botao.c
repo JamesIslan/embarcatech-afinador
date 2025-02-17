@@ -43,6 +43,7 @@ void callback_botao_pressionado(uint gpio, uint32_t events) {
   modo_menu = !modo_menu;
   if (modo_menu) { // Modo menu ligado -> Tela de seleção de cordas
     busy_wait_ms(200);
+    max_freq = 0;
     apagar_led();            // Apaga LED se estiver aceso
     kiss_fft_free(cfg_fftr); // Reseta configurações de FFT
     iniciar_temporizador_joystick();
